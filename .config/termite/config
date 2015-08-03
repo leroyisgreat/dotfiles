@@ -5,7 +5,7 @@ font = Source Code pro Medium 8
 [colors]
 # hard contrast: background = #1d2021
 # soft contrast: background = #32302f
-background = #282828
+background = rgba(28, 28, 28, 0.8)
 foreground = #ebdbb2
 foreground_bold = #ebdbb2
 
