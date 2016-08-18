@@ -22,9 +22,6 @@ set smartcase
 set hlsearch
 set incsearch
 
-" Performance gains
-"set lazydraw
-
 " Regex
 set magic
 
@@ -35,11 +32,23 @@ set mat=2
 " Syntax highlighting
 syntax enable
 
+" Statusline
+set laststatus=2
+let g:airline_powerline_fonts=1
+
+ " Enable advanced operator highlighting
+autocmd! FileType c,cpp,java,php call CSyntaxAfter()
+
 try
     colorscheme gruvbox
 catch
 endtry
 
+" if strftime("%H") < 20
+"   set background=light
+" else
+"   set background=dark
+" endif
 set background=dark
 
 set encoding=utf8
@@ -56,6 +65,16 @@ set tw=120
 set ai
 set si
 set wrap
+
+set cinoptions=l1
+
+" Windows
+set splitright
+
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
 
 " Line Numbers (Press Ctrl+n twice to toggle)
 nmap <C-N><C-N> :set invnumber<CR>

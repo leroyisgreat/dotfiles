@@ -4,4 +4,8 @@ Collection of my personal dotfiles for:
 * zsh
 * termite
 * xorg-xinit
+* Awesome-wm
+I no longer use the following programs but have held onto their dotfiles:
+* i3wm
+* xmonad
 * tmux

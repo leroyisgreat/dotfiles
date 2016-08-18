@@ -1,2 +1,2 @@
-feh --bg-scale ~/Pictures/wallimg.png
-exec i3
+exec xscreensaver -no-splash &
+exec awesome

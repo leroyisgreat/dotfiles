@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/usr/portage/profiles'
+let g:netrw_dirhist_2='/etc/portage/repos.conf'
+let g:netrw_dirhist_3='/etc/X11/xorg.conf.d'
+let g:netrw_dirhist_4='/home/leroyce/.vim'
+let g:netrw_dirhist_5='/home/leroyce/workspace/django/blog'
+let g:netrw_dirhist_6='/home/leroyce/workspace/java/images'

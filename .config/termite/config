@@ -1,6 +1,7 @@
 [options]
-font = Source Code pro Medium 8
-#font = "SourceCodePro-Regular" 8
+#font = Source Code pro Bold 10
+font = Source Code pro Medium 10
+#font = "SourceCodePro-Regular" 10
 
 [colors]
 # hard contrast: background = #1d2021

@@ -5,6 +5,7 @@ promptinit
 # Set prompt style
 prompt adam2
 
+# KEYBINDINGS -- {{{
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo
 typeset -A key
@@ -21,7 +22,7 @@ key[Right]=${terminfo[kcuf1]}
 key[PageUp]=${terminfo[kpp]}
 key[PageDown]=${terminfo[knp]}
 
-# setup key accordingly
+# Key assignment
 [[ -n "${key[Home]}"     ]]  && bindkey  "${key[Home]}"     beginning-of-line
 [[ -n "${key[End]}"      ]]  && bindkey  "${key[End]}"      end-of-line
 [[ -n "${key[Insert]}"   ]]  && bindkey  "${key[Insert]}"   overwrite-mode
@@ -47,8 +48,38 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     zle -N zle-line-init
     zle -N zle-line-finish
 fi
+# }}}
+
+# DIRSTACK -- {{{
+DIRSTACKFILE="$HOME/.cache/zsh/dirs"
+if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
+  dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+  [[ -d $dirstack[1] ]] # && cd $dirstack[1]
+fi
+chpwd() {
+  print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
+}
+
+DIRSTACKSIZE=20
+
+setopt autopushd pushdsilent pushdtohome
+
+## Remove duplicate entries
+setopt pushdignoredups
+
+## This reverts the +/- operators.
+setopt pushdminus
+# }}}
+
+# Environment settings
+export VISUAL=vim
+export EDITOR=$VISUAL
 
 # LS_COLORS for termite
 eval $(dircolors ~/.dircolors)
 
-alias tm="tmux -2"
+#alias tm="tmux -2"
+alias ls="ls --color"
+alias sudo="sudo -E"
+alias lisp="rlwrap sbcl"
+alias oct="octave --no-gui"
