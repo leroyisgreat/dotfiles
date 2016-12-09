@@ -1,42 +1,54 @@
-" Set history by number of lines
+" {{{ HISTORY
 set history=500
+" }}}
 
-" Enable Filetype plugins
+" {{{ PLUGINS 
 filetype plugin on
 filetype indent on
 
 set autoread
+" }}}
 
+" {{{ MOVEMENT
 " Vertical jump with 'j' and 'k'
 set so=7
+" }}}
 
-" Always show current position
-set ruler
-
-" Configure Backspace
+" {{{ BACKSPACE
 set backspace=eol,start,indent
+" }}}
 
-" For search
+" {{{ SEARCH
 set ignorecase
 set smartcase
 set hlsearch
 set incsearch
+" }}}
 
-" Regex
+" {{{ REGEX
 set magic
+" }}}
 
-" Brackets
+" {{{ BRACKETS
 set showmatch
 set mat=2
+" }}}
 
-" Syntax highlighting
+" {{{ SYNTAX HIGHLIGHTING
 syntax enable
+" }}}
 
-" Statusline
+" {{{ STATUSLINE
+" always show Powerline/Airline
 set laststatus=2
+" show angled brackets correctly
 let g:airline_powerline_fonts=1
 
- " Enable advanced operator highlighting
+" Always show current position
+set ruler
+" }}}
+
+" {{{ COLORING
 autocmd! FileType c,cpp,java,php call CSyntaxAfter()
 
 try
@@ -50,10 +62,17 @@ endtry
 "   set background=dark
 " endif
 set background=dark
+" }}}
 
+" {{{ FORMATTING
 set encoding=utf8
+" }}}
 
-" Tabbing and indents
+" {{{ FOLDING
+set fdm=marker
+" }}}
+
+" {{{ TABBING & INDENTS
 set expandtab
 set smarttab
 set shiftwidth=4
@@ -68,18 +87,27 @@ set wrap
 
 set cinoptions=l1
 
-" Windows
-set splitright
+" }}}
 
+" {{{ WINDOWS
+set splitright
+" }}}
+
+" {{{ LINE NUMBERS
+" Toggle Line Number View (Press Ctrl+n twice to toggle)
+nmap <C-N><C-N> :set invnumber<CR>
+" Set Line Numbers to initially on
+set invnumber
+" }}}
+
+" {{{ MAPPINGS
+" map control-backspace to delete the previous word
+imap <C-BS> <C-W>
+" }}}
+
+" {{{ ???
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
 endif
-
-" Line Numbers (Press Ctrl+n twice to toggle)
-nmap <C-N><C-N> :set invnumber<CR>
-" Set Line Numbers to initially on
-set invnumber
-
-" map control-backspace to delete the previous word
-imap <C-BS> <C-W>
+" }}}

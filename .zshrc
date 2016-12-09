@@ -1,9 +1,12 @@
+# PROMPT -- {{{
+
 autoload -U compinit promptinit
 compinit
 promptinit
 
 # Set prompt style
 prompt adam2
+# }}}
 
 # KEYBINDINGS -- {{{
 # create a zkbd compatible hash;
@@ -11,7 +14,6 @@ prompt adam2
 typeset -A key
 
 key[Home]=${terminfo[khome]}
-
 key[End]=${terminfo[kend]}
 key[Insert]=${terminfo[kich1]}
 key[Delete]=${terminfo[kdch1]}
@@ -71,15 +73,30 @@ setopt pushdignoredups
 setopt pushdminus
 # }}}
 
+# EXPORTS -- {{{
 # Environment settings
 export VISUAL=vim
 export EDITOR=$VISUAL
+# }}}
 
+# TERMITE-SPECIFIC -- {{{
 # LS_COLORS for termite
 eval $(dircolors ~/.dircolors)
+# }}}
 
+# ALIASES -- {{{
 #alias tm="tmux -2"
 alias ls="ls --color"
 alias sudo="sudo -E"
 alias lisp="rlwrap sbcl"
 alias oct="octave --no-gui"
+
+# TaskWarrior
+alias tl="task list"
+alias ta="task add"
+alias tst="task start"
+alias tdo="task done"
+alias tdel="task delete"
+alias tmod="task modify"
+alias tsyn="task sync"
+# }}}

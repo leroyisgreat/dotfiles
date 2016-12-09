@@ -1,6 +1,19 @@
 pcm.!default {
-	type plug
-	slave.pcm "dmixer"
+	type pulse
+    #type plug
+	#slave.pcm "dmixer"
+    hint.description "Default Audio Device"
+}
+ctl.!default {
+	type pulse
+}
+
+pcm.pulse {
+    type pulse
+}
+
+ctl.pulse {
+    type pulse
 }
 
 pcm.dmixer  {
@@ -20,6 +33,11 @@ pcm.dmixer  {
 	}
 }
 
+ctl.dmixer {
+	type hw
+	card 1
+}
+
 pcm.analog-hw {
     type hw
     card 1
@@ -30,9 +48,4 @@ pcm.digital-hw {
     type hw
     card 0
     device 3
-}
-
-ctl.dmixer {
-	type hw
-	card 1
 }

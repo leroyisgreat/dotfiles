@@ -428,7 +428,7 @@ root.buttons(awful.util.table.join(
 globalkeys = awful.util.table.join(
     -- Take a screenshot
     -- https://github.com/copycat-killer/dots/blob/master/bin/screenshot
-    awful.key({ altkey }, "p", function() os.execute("screenshot") end),
+    awful.key({ modkey }, "Print", function() os.execute("screenshot") end),
 
     -- Tag browsing
     awful.key({ modkey }, "Left",   awful.tag.viewprev       ),
@@ -537,6 +537,23 @@ globalkeys = awful.util.table.join(
             awful.util.spawn("amixer sset Master toggle")
             volumewidget.update()
         end),
+
+    -- PulseAudio volume control
+    --awful.key({ }, "XF86AudioRaiseVolume",
+    --    function () 
+    --        awful.util.spawn("pactl set-sink-volume 1 +5%") 
+    --        volumewidget.update()
+    --    end),
+    --awful.key({ }, "XF86AudioLowerVolume",
+    --    function () 
+    --        awful.util.spawn("pactl set-sink-volume 1 -5%") 
+    --        volumewidget.update()
+    --    end),
+    --awful.key({ }, "XF86AudioMute",
+    --    function ()
+    --        awful.util.spawn("pactl set-sink-mute 1 toggle")
+    --        volumewidget.update()
+    --    end),
 
     -- MPD control
     --awful.key({ altkey, "Control" }, "Up",
