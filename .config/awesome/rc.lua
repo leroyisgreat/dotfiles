@@ -1,9 +1,9 @@
---[[
-                                      
-     Multicolor Awesome WM config 2.0 
-     github.com/copycat-killer        
-                                      
---]]
+-- {{
+
+    -- Awesome WM Config Hodgepodge
+    -- LeRoy Gary with source from github.com/copycat-killer        
+
+-- }}
 
 -- {{{ Required libraries
 local gears     = require("gears")
@@ -48,7 +48,7 @@ function run_once(cmd)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
 
-run_once("urxvtd")
+--run_once("urxvtd")
 run_once("unclutter -root")
 -- }}}
 
@@ -436,8 +436,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "Escape", awful.tag.history.restore),
 
     -- Non-empty tag browsing
-    --awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end),
-    --awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end),
+    awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end),
+    awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end),
 
     -- Default client focus
     awful.key({ altkey }, "k",
@@ -538,23 +538,6 @@ globalkeys = awful.util.table.join(
             volumewidget.update()
         end),
 
-    -- PulseAudio volume control
-    --awful.key({ }, "XF86AudioRaiseVolume",
-    --    function () 
-    --        awful.util.spawn("pactl set-sink-volume 1 +5%") 
-    --        volumewidget.update()
-    --    end),
-    --awful.key({ }, "XF86AudioLowerVolume",
-    --    function () 
-    --        awful.util.spawn("pactl set-sink-volume 1 -5%") 
-    --        volumewidget.update()
-    --    end),
-    --awful.key({ }, "XF86AudioMute",
-    --    function ()
-    --        awful.util.spawn("pactl set-sink-mute 1 toggle")
-    --        volumewidget.update()
-    --    end),
-
     -- MPD control
     --awful.key({ altkey, "Control" }, "Up",
     --    function ()
@@ -582,12 +565,11 @@ globalkeys = awful.util.table.join(
 
     -- User programs
     awful.key({ modkey }, "q", function () awful.util.spawn(browser) end),
-    --awful.key({ modkey }, "i", function () awful.util.spawn(browser2) end),
-    --awful.key({ modkey }, "s", function () awful.util.spawn(gui_editor) end),
-    --awful.key({ modkey }, "g", function () awful.util.spawn(graphics) end),
+    awful.key({ modkey }, "g", function () awful.util.spawn(graphics) end),
 
     -- Screen lock
     awful.key({ modkey, "Control" }, "l", function () awful.util.spawn(lock) end),
+
     -- Brightness
     awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 15") end),
     awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 15") end),
@@ -763,15 +745,27 @@ client.connect_signal("manage", function (c, startup)
 end)
 
 -- No border for maximized clients
-client.connect_signal("focus",
-    function(c)
-        if c.maximized_horizontal == true and c.maximized_vertical == true then
-            c.border_color = beautiful.border_normal
-        else
-            c.border_color = beautiful.border_focus
-        end
-    end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- Transparency
+--client.connect_signal("focus",
+--    function(c)
+--        if c.maximized_horizontal == true and c.maximized_vertical == true then
+--            c.border_color = beautiful.border_normal
+--        else
+--            c.border_color = beautiful.border_focus
+--        end
+--    end)
+--client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+client.connect_signal("focus", 
+	function(c)
+		c.border_color = beautiful.border_focus
+		c.opacity = 1
+	end)
+client.connect_signal("unfocus", 
+	function(c)
+		c.border_color = beautiful.border_normal
+		c.opacity = 0.90
+	end)
 -- }}}
 
 -- {{{ Arrange signal handler
