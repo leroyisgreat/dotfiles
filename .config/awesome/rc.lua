@@ -49,6 +49,7 @@ function run_once(cmd)
 end
 
 --run_once("urxvtd")
+run_once("compton -b")
 run_once("unclutter -root")
 -- }}}
 
@@ -65,6 +66,7 @@ editor     = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- user defined
+work_dir   = "~/"
 browser    = "chromium"
 gui_editor = "gvim"
 graphics   = "gimp"
@@ -123,7 +125,6 @@ markup      = lain.util.markup
 
 -- Textclock
 clockicon = wibox.widget.imagebox(beautiful.widget_clock)
---mytextclock = awful.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#343639", ">") .. markup("#de5e1e", " %H:%M "))
 mytextclock = lain.widgets.abase({
     timeout  = 60,
     cmd      = "date +'%A %d %B %R'",
@@ -140,17 +141,6 @@ mytextclock = lain.widgets.abase({
 -- Calendar
 lain.widgets.calendar:attach(mytextclock, { font_size = 10 })
 
--- Weather
---weathericon = wibox.widget.imagebox(beautiful.widget_weather)
---myweather = lain.widgets.weather({
---    city_id = 123456, -- placeholder
---    settings = function()
---        descr = weather_now["weather"][1]["description"]:lower()
---        units = math.floor(weather_now["main"]["temp"])
---        widget:set_markup(markup("#eca4c4", descr .. " @ " .. units .. "°C "))
---    end
---})
-
 -- / fs
 fsicon = wibox.widget.imagebox(beautiful.widget_fs)
 fswidget = lain.widgets.fs({
@@ -158,27 +148,6 @@ fswidget = lain.widgets.fs({
         widget:set_markup(markup("#80d9d8", fs_now.used .. "% "))
     end
 })
-
---[[ Mail IMAP check
--- commented because it needs to be set before use
-mailicon = wibox.widget.imagebox()
-mailicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(mail) end)))
-mailwidget = lain.widgets.imap({
-    timeout  = 180,
-    server   = "server",
-    mail     = "mail",
-    password = "keyring get mail",
-    settings = function()
-        if mailcount > 0 then
-            mailicon:set_image(beautiful.widget_mail)
-            widget:set_markup(markup("#cccccc", mailcount .. " "))
-        else
-            widget:set_text("")
-            mailicon:set_image(nil)
-        end
-    end
-})
-]]
 
 -- CPU
 cpuicon = wibox.widget.imagebox()
@@ -248,32 +217,6 @@ memwidget = lain.widgets.mem({
         widget:set_markup(markup("#e0da37", mem_now.used .. "M "))
     end
 })
-
--- MPD
---mpdicon = wibox.widget.imagebox()
---mpdwidget = lain.widgets.mpd({
---    settings = function()
---        --mpd_notification_preset = {
---        --    text = string.format("%s [%s] - %s\n%s", mpd_now.artist,
---        --           mpd_now.album, mpd_now.date, mpd_now.title),
---        --    position = "top_left"
---        --}
---
---        if mpd_now.state == "play" then
---            artist = mpd_now.artist .. " > "
---            title  = mpd_now.title .. " "
---            mpdicon:set_image(beautiful.widget_note_on)
---        elseif mpd_now.state == "pause" then
---            artist = "mpd "
---            title  = "paused "
---        else
---            artist = ""
---            title  = ""
---            mpdicon:set_image(nil)
---        end
---        widget:set_markup(markup("#e54c62", artist) .. markup("#b2b2b2", title))
---    end
---})
 
 -- Spacer
 spacer = wibox.widget.textbox(" ")
@@ -436,8 +379,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "Escape", awful.tag.history.restore),
 
     -- Non-empty tag browsing
-    awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end),
-    awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end),
+    awful.key({ modkey, altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end),
+    awful.key({ modkey, altkey }, "Right", function () lain.util.tag_view_nonempty(1) end),
 
     -- Default client focus
     awful.key({ altkey }, "k",
@@ -511,7 +454,8 @@ globalkeys = awful.util.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r",      awesome.restart),
-    awful.key({ modkey, "Control", "Shift"   }, "q",      awesome.quit),
+    -- I hardly ever want to quit Awesome, I usually just want to shutdown or reboot.
+    --awful.key({ modkey, "Control", "Shift"   }, "q",      awesome.quit),
 
     -- Dropdown terminal
     awful.key({ modkey,	          }, "z",      function () drop(terminal) end),
@@ -519,7 +463,6 @@ globalkeys = awful.util.table.join(
     -- Widgets popups
     awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
     awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
-    --awful.key({ altkey,           }, "w",      function () myweather.show(7) end),
 
     -- ALSA volume control
     awful.key({ }, "XF86AudioRaiseVolume",
@@ -537,28 +480,6 @@ globalkeys = awful.util.table.join(
             awful.util.spawn("amixer sset Master toggle")
             volumewidget.update()
         end),
-
-    -- MPD control
-    --awful.key({ altkey, "Control" }, "Up",
-    --    function ()
-    --        awful.util.spawn_with_shell("mpc toggle || ncmpc toggle || pms toggle")
-    --        mpdwidget.update()
-    --    end),
-    --awful.key({ altkey, "Control" }, "Down",
-    --    function ()
-    --        awful.util.spawn_with_shell("mpc stop || ncmpc stop || pms stop")
-    --        mpdwidget.update()
-    --    end),
-    --awful.key({ altkey, "Control" }, "Left",
-    --    function ()
-    --        awful.util.spawn_with_shell("mpc prev || ncmpc prev || pms prev")
-    --        mpdwidget.update()
-    --    end),
-    --awful.key({ altkey, "Control" }, "Right",
-    --    function ()
-    --        awful.util.spawn_with_shell("mpc next || ncmpc next || pms next")
-    --        mpdwidget.update()
-    --    end),
 
     -- Copy to clipboard
     awful.key({ modkey }, "c", function () os.execute("xsel -p -o | xsel -i -b") end),
@@ -669,21 +590,18 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
 	                   size_hints_honor = false } },
-    { rule = { class = "URxvt" },
-          properties = { opacity = 0.99 } },
 
-    { rule = { class = "Firefox" },
-          properties = { tag = tags[1][1] } },
+    { rule = { class = "Termite" },
+        properties = { opacity = .95 } },
+
+    { rule = { class = browser },
+        properties = { tag = tags[1][1] } },
 
     { rule = { instance = "plugin-container" },
-          properties = { tag = tags[1][1] } },
+        properties = { tag = tags[1][1] } },
 
---	  { rule = { class = "Gimp" },
---     	    properties = { tag = tags[1][4] } },
-
---    { rule = { class = "Gimp", role = "gimp-image-window" },
---          properties = { maximized_horizontal = true,
---                         maximized_vertical = true } },
+    { rule = { class = graphics },
+        properties = { tag = tags[1][4] } },
 }
 
 -- }}}
@@ -744,28 +662,15 @@ client.connect_signal("manage", function (c, startup)
     end
 end)
 
--- No border for maximized clients
--- Transparency
---client.connect_signal("focus",
---    function(c)
---        if c.maximized_horizontal == true and c.maximized_vertical == true then
---            c.border_color = beautiful.border_normal
---        else
---            c.border_color = beautiful.border_focus
---        end
---    end)
---client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
-
-client.connect_signal("focus", 
-	function(c)
-		c.border_color = beautiful.border_focus
-		c.opacity = 1
-	end)
-client.connect_signal("unfocus", 
-	function(c)
-		c.border_color = beautiful.border_normal
-		c.opacity = 0.90
-	end)
+-- Focus & Transparency
+client.connect_signal("focus", function(c)
+    c.border_color = beautiful.border_focus
+    --c.opacity = 1
+end)
+client.connect_signal("unfocus", function(c)
+    c.border_color = beautiful.border_normal
+    --c.opacity = 0.95
+end)
 -- }}}
 
 -- {{{ Arrange signal handler

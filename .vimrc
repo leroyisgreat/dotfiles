@@ -94,15 +94,18 @@ set splitright
 " }}}
 
 " {{{ LINE NUMBERS
-" Toggle Line Number View (Press Ctrl+n twice to toggle)
-nmap <C-N><C-N> :set invnumber<CR>
-" Set Line Numbers to initially on
-set invnumber
+    " Toggle Line Number View (Press Ctrl+n twice to toggle)
+    nmap <C-N><C-N> :set invnumber<CR>
+    " Set Line Numbers to initially on
+    set rnu
+    set number
 " }}}
 
 " {{{ MAPPINGS
 " map control-backspace to delete the previous word
 imap <C-BS> <C-W>
+map <ESC>[1;5D <C-Left>
+map <ESC>[1;5C <C-Right>
 " }}}
 
 " {{{ ???
