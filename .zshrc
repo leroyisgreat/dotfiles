@@ -1,3 +1,11 @@
+# TERMITE SPECIFIC -- {{{
+    # Tell Termite what the current directory is.
+    #if [[ $TERM == xterm-termite ]]; then
+    #    . /etc/profile.d/vte.sh
+    #    __vte_osc7
+    #fi
+# -- }}}
+
 # PROMPT -- {{{
     autoload -U compinit promptinit
     compinit
@@ -35,10 +43,8 @@
     [[ -n "${key[PageUp]}"   ]]  && bindkey  "${key[PageUp]}"   beginning-of-buffer-or-history
     [[ -n "${key[PageDown]}" ]]  && bindkey  "${key[PageDown]}" end-of-buffer-or-history
 
-    bindkey "^[[1;5C" forward-word
-    bindkey "^[[1;5D" backward-word
-    bindkey "[3;5~" forward-kill-word
-    bindkey "" backward-kill-word
+    bindkey '[1;5D'   backward-word
+    bindkey '[1;5C'   forward-word
 
     # Finally, make sure the terminal is in application mode, when zle is
     # active. Only then are the values from $terminfo valid.
@@ -55,19 +61,10 @@
 # }}}
 
 # DIRSTACK -- {{{
-    DIRECTORY="/tmp/wmdirectory"
-    if [[ ! -f $DIRECTORY ]]; then
-        $(echo $HOME > $DIRECTORY)
-    else
-        working_directory=$(cat $DIRECTORY)
-        cd $working_directory
-    fi
-
-
     DIRSTACKFILE="$HOME/.cache/zsh/dirs"
     if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
       dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
-      [[ -d $dirstack[1] ]] # && cd $dirstack[1]
+      #[[ -d $dirstack[1] ]] && cd $dirstack[1]
     fi
     chpwd() {
       print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
@@ -85,29 +82,47 @@
 # }}}
 
 # EXPORTS -- {{{
-# Environment settings
-export VISUAL=vim
-export EDITOR=$VISUAL
+    export VISUAL=vim
+    export EDITOR=$VISUAL
+    export GTK_THEME=Numix
 # }}}
 
-# TERMITE-SPECIFIC -- {{{
-# LS_COLORS for termite
-eval $(dircolors ~/.dircolors)
+# WORKING DIRECTORY -- {{{
+    ## for the global Working Directory pattern
+    function cwd() {
+        dir=$(realpath $1)
+        if [[ -z "$dir" ]]; then
+            echo "ERROR: cannot set Working Directory to NULL"
+        elif [[ ! -d "$dir" ]]; then
+            echo "ERROR: "$1" not a directory"
+        else
+            echo $dir > $WDFILE
+            cd $(cat $WDFILE)
+        fi
+    }
+
+    # Working Directory preamble
+    WDFILE="$HOME/.cache/zsh/wd"
+    if [[ ! -f $WDFILE ]]; then
+        echo $HOME > $WDFILE
+    else
+        cd $(cat $WDFILE)
+    fi
 # }}}
 
 # ALIASES -- {{{
-#alias tm="tmux -2"
-alias ls="ls --color"
-alias sudo="sudo -E"
-alias lisp="rlwrap sbcl"
-alias oct="octave --no-gui"
+    #alias tm="tmux -2"
+    alias ls="ls --color"
+    alias sudo="sudo -E"
+    alias lisp="rlwrap sbcl"
+    alias oct="octave --no-gui"
 
-# TaskWarrior
-alias tl="task list"
-alias ta="task add"
-alias tst="task start"
-alias tdo="task done"
-alias tdel="task delete"
-alias tmod="task modify"
-alias tsyn="task sync"
+    # TaskWarrior
+    alias tl="task list"
+    alias ta="task add"
+    alias tst="task start"
+    alias tdo="task done"
+    alias tdel="task delete"
+    alias tmod="task modify"
+    alias tsyn="task sync"
 # }}}

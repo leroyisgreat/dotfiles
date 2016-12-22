@@ -1,42 +1,49 @@
 [options]
-#font = Source Code pro Bold 10
-font = Source Code pro Medium 10
+#font = Source Code Pro Powerline Medium 10
+#font = Source Code Pro for Powerline Medium 10
+#font = Arimo Bold 10
+font = Sauce Code Powerline Medium 10
 
 [colors]
-# hard contrast: background = #1d2021
-# soft contrast: background = #32302f
-background = rgba(28, 28, 28)
-foreground = #ebdbb2
-foreground_bold = #ebdbb2
+# based off of "Sweet Love" by Boroshlawa;
+# dark colors were shifted down 10 points in brightness
+# and light colors were shifted up 5 points in brightness
 
-# Black + DarkGrey
-color0 = #282828
-color8 = #928374
+# special
+foreground      = #c0b18b
+foreground_bold = #c0b18b
+cursor          = #c0b18b
+background      = #1f1f1f
 
-# DarkRed + Red
-color1 = #cc241d
-color9 = #fb4934
+# black
+color0  = #574141
+color8  = #261a1a
 
-# DarkGreen + Green
-color2 = #98971a
-color10 = #b8bb26
+# red
+color1  = #de854e
+color9  = #915129
 
-# DarkYellow + Yellow
-color3 = #d79921
-color11 = #fabd2f
+# green
+color2  = #899450
+color10 = #4e572b
 
-# DarkBlue + Blue
-color4 = #458588
-color12 = #83a598
+# yellow
+color3  = #bd925e
+color11 = #755637
 
-# DarkMagenta + Magenta
-color5 = #b16286
-color13 = #d3869b
+# blue
+color4  = #5e6969
+color12 = #303030
 
-# DarkCyan + Cyan
-color6 = #689d6a
-color14 = #8ec07c
+# magenta
+color5  = #855b66
+color13 = #473232
 
-# LightGrey + White
-color7 = #a89984
-color15 = #ebdbb2
+# cyan
+color6  = #7d7d64
+color14 = #424235
+
+# white
+color7  = #ccc299
+color15 = #7d7251
+
