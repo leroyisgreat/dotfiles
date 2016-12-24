@@ -1,7 +1,7 @@
 -- {{
 
     -- Awesome WM Config Hodgepodge
-    -- LeRoy Gary with source from github.com/copycat-killer        
+    -- github.com/leroyisgreat with source from github.com/copycat-killer        
 
 -- }}
 
@@ -59,7 +59,7 @@
 
 -- {{{ Variable definitions
     -- beautiful init
-    beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/sand/theme.lua")
+    beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/vapor1/theme.lua")
 
     -- common
     modkey     = "Mod4"
@@ -69,7 +69,7 @@
     editor_cmd = terminal .. " -e " .. editor
 
     -- user defined
-    browser    = "chromium"
+    browser    = "chromium --enable-dom-distiller"
     graphics   = "gimp"
     lock       = "xscreensaver-command -lock"
 
@@ -263,8 +263,7 @@ end
         mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
         -- Create the upper wibox
-        mywibox[s] = awful.wibox({ position = "top", screen = s, height = 20,
-        border_width = 2, height =  22 })
+        mywibox[s] = awful.wibox({ position = "top", screen = s, border_width = beautiful.border_width })
 
         -- Widgets that are aligned to the upper left
         local left_layout = wibox.layout.fixed.horizontal()
@@ -412,7 +411,7 @@ end
         awful.key({ modkey, "Control", "Shift"   }, "q",      awesome.quit),
 
         -- Dropdown terminal
-        awful.key({ modkey,	          }, "z",      function () drop(terminal) end),
+        awful.key({ modkey,	          }, "z",      function () drop(terminal, "top", "center", .7) end),
 
         -- Widgets popups
         awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
