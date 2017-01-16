@@ -1,5 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =6
 let g:netrw_dirhist_1='/home/leroyce/.config/awesome/themes/multicolor'
 let g:netrw_dirhist_2='/home/leroyce/workspace/bar'
 let g:netrw_dirhist_3='/home/leroyce/.vim'
+let g:netrw_dirhist_4='/home/leroyce/.oh-my-zsh/themes'
+let g:netrw_dirhist_5='/home/leroyce/.vim'
+let g:netrw_dirhist_6='/sys/devices/pci0000:00/0000:00:1c.1/0000:03:00.0/net/wlp3s0/wireless'
