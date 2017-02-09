@@ -52,6 +52,7 @@ local function worker(args)
 
         net_now.carrier  = helpers.first_line(string.format('/sys/class/net/%s/carrier', iface)) or '0'
         net_now.state    = helpers.first_line(string.format('/sys/class/net/%s/operstate', iface)) or 'down'
+        net_now.ssid     = helpers.read_pipe("iwgetid --raw")
 
         local now_t      = helpers.first_line(string.format('/sys/class/net/%s/statistics/tx_bytes', iface)) or 0
         local now_r      = helpers.first_line(string.format('/sys/class/net/%s/statistics/rx_bytes', iface)) or 0

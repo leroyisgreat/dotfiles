@@ -48,13 +48,9 @@
       awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
     end
 
-    --run_once("urxvtd")
     run_once("compton -b")
     run_once("unclutter -root")
-
-    naughty.notify({ position = "bottom_right",
-                     text = "強くなりたい", 
-                     timeout = 10 })
+    --run_once("conky")
 -- }}}
 
 -- {{{ Variable definitions
@@ -187,7 +183,8 @@ end
     -- Net
     netinfo = lain.widgets.net({
         settings = function()
-            widget:set_markup(net_now.sent .. "/" .. net_now.received)
+            --widget:set_markup(net_now.sent .. "/" .. net_now.received)
+            widget:set_markup(net_now.ssid)
         end
     })
 
@@ -649,4 +646,10 @@ end
             end
           end)
     end
+-- }}}
+
+-- Finishing Touches {{{
+    naughty.notify({ position = "bottom_right",
+                     text = "強くなりたい", 
+                     timeout = 10 })
 -- }}}
