@@ -61,6 +61,7 @@
 
 " {{{ FORMATTING
     set encoding=utf8
+    set textwidth=80
 " }}}
 
 " {{{ FOLDING
@@ -70,8 +71,8 @@
 " {{{ TABBING & INDENTS
     set expandtab
     set smarttab
-    set shiftwidth=4
-    set tabstop=4
+    set shiftwidth=2
+    set tabstop=2
     set lbr
     set tw=120
     set ai
@@ -97,8 +98,8 @@
 
 	nnoremap <C-N> :call NumberToggle()<CR>
 	"nnoremap <M-N> :set rnu!<CR>:set nu!<CR>
-    " Set Relative Line Numbers to initially on
-    set relativenumber
+  " Set Line Numbers to initially on
+  set nu
 " }}}
 
 " {{{ MAPPINGS
