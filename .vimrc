@@ -1,8 +1,16 @@
 " {{{ HISTORY
     set history=500
+
+    if has("autocmd")
+      au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    endif
 " }}}
 
 " {{{ PLUGINS 
+    call plug#begin('~/.vim/plugged')
+    Plug 'morhetz/gruvbox'
+    call plug#end()
+
     filetype plugin on
     filetype indent on
 
@@ -49,19 +57,12 @@
 " }}}
 
 " {{{ COLORING
-    autocmd! FileType c,cpp,java,php call CSyntaxAfter()
-
-    " try
-    "     colorscheme gruvbox
-    " catch
-    " endtry
-
+    colorscheme gruvbox
     set background=dark
 " }}}
 
 " {{{ FORMATTING
     set encoding=utf8
-    set textwidth=80
 " }}}
 
 " {{{ FOLDING
@@ -74,7 +75,7 @@
     set shiftwidth=2
     set tabstop=2
     set lbr
-    set tw=120
+    set textwidth=80
     set ai
     set si
     set wrap
@@ -109,9 +110,3 @@
     map <ESC>[1;5C <C-Right>
 " }}}
 
-" {{{ ???
-    if has("autocmd")
-      au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-        \| exe "normal! g'\"" | endif
-    endif
-" }}}
