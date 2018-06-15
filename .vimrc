@@ -9,6 +9,8 @@
 " {{{ PLUGINS 
     call plug#begin('~/.vim/plugged')
     Plug 'morhetz/gruvbox'
+    Plug 'edkolev/tmuxline.vim'
+    Plug 'vim-airline/vim-airline'
     call plug#end()
 
     filetype plugin on
@@ -49,9 +51,42 @@
 " {{{ STATUSLINE
     " always show Powerline/Airline
     set laststatus=2
-    " show angled brackets correctly
-    let g:airline_powerline_fonts=1
 
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_alt_sep = '|'
+
+		" air-line
+    " show angled brackets correctly
+		"let g:airline_powerline_fonts = 1
+
+		"if !exists('g:airline_symbols')
+		"		let g:airline_symbols = {}
+		"endif
+
+		"" unicode symbols
+		"let g:airline_left_sep = '»'
+		"let g:airline_left_sep = '▶'
+		"let g:airline_right_sep = '«'
+		"let g:airline_right_sep = '◀'
+		"let g:airline_symbols.linenr = '␊'
+		"let g:airline_symbols.linenr = '␤'
+		"let g:airline_symbols.linenr = '¶'
+		"let g:airline_symbols.branch = '⎇'
+		"let g:airline_symbols.paste = 'ρ'
+		"let g:airline_symbols.paste = 'Þ'
+		"let g:airline_symbols.paste = '∥'
+		"let g:airline_symbols.whitespace = 'Ξ'
+
+		"" airline symbols
+		"let g:airline_left_sep = ''
+		"let g:airline_left_alt_sep = ''
+		"let g:airline_right_sep = ''
+		"let g:airline_right_alt_sep = ''
+		"let g:airline_symbols.branch = ''
+		"let g:airline_symbols.readonly = ''
+		"let g:airline_symbols.linenr = ''
+    "
     " Always show current position
     set ruler
 " }}}
@@ -59,6 +94,8 @@
 " {{{ COLORING
     colorscheme gruvbox
     set background=dark
+    " for TMUX
+    set t_Co=256
 " }}}
 
 " {{{ FORMATTING
@@ -109,4 +146,3 @@
     map <ESC>[1;5D <C-Left>
     map <ESC>[1;5C <C-Right>
 " }}}
-
