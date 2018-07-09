@@ -6,7 +6,7 @@
     endif
 " }}}
 
-" {{{ PLUGINS 
+" {{{ PLUGINS
     call plug#begin('~/.vim/plugged')
     Plug 'morhetz/gruvbox'
     Plug 'edkolev/tmuxline.vim'
@@ -55,38 +55,12 @@
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#left_sep = ' '
     let g:airline#extensions#tabline#left_alt_sep = '|'
+    let g:airline#extensions#tabline#right_sep = ' '
+    let g:airline#extensions#tabline#right_alt_sep = '|'
+    let g:tmuxline_powerline_separators = 0
 
-		" air-line
-    " show angled brackets correctly
-		"let g:airline_powerline_fonts = 1
+    let g:airline#extensions#virtualenv#enabled = 1
 
-		"if !exists('g:airline_symbols')
-		"		let g:airline_symbols = {}
-		"endif
-
-		"" unicode symbols
-		"let g:airline_left_sep = '»'
-		"let g:airline_left_sep = '▶'
-		"let g:airline_right_sep = '«'
-		"let g:airline_right_sep = '◀'
-		"let g:airline_symbols.linenr = '␊'
-		"let g:airline_symbols.linenr = '␤'
-		"let g:airline_symbols.linenr = '¶'
-		"let g:airline_symbols.branch = '⎇'
-		"let g:airline_symbols.paste = 'ρ'
-		"let g:airline_symbols.paste = 'Þ'
-		"let g:airline_symbols.paste = '∥'
-		"let g:airline_symbols.whitespace = 'Ξ'
-
-		"" airline symbols
-		"let g:airline_left_sep = ''
-		"let g:airline_left_alt_sep = ''
-		"let g:airline_right_sep = ''
-		"let g:airline_right_alt_sep = ''
-		"let g:airline_symbols.branch = ''
-		"let g:airline_symbols.readonly = ''
-		"let g:airline_symbols.linenr = ''
-    "
     " Always show current position
     set ruler
 " }}}
@@ -124,20 +98,20 @@
 " }}}
 
 " {{{ LINE NUMBERS
-    function! NumberToggle()
-		if(&relativenumber == 1)
-			set nu
-            set rnu!
-		else
-			set rnu
-			set nu!
-		endif
-	endfunc
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set nu
+    set rnu!
+  else
+    set rnu
+    set nu!
+  endif
+endfunc
 
-	nnoremap <C-N> :call NumberToggle()<CR>
-	"nnoremap <M-N> :set rnu!<CR>:set nu!<CR>
-  " Set Line Numbers to initially on
-  set nu
+nnoremap <C-N><C-N> :call NumberToggle()<CR>
+"nnoremap <C-N><C-N> :set rnu!<CR>:set nu!<CR>
+" Set Line Numbers to initially on
+set nu
 " }}}
 
 " {{{ MAPPINGS

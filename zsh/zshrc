@@ -1,4 +1,9 @@
 # OH-MY-ZSH CONFIGURATION -- {{{
+#
+# Boilerplate from installing OH-MY-ZSH
+# I'm leaving these comments here in case I change my mind about them
+#
+
 	# If you come from bash you might have to change your $PATH.
 	# export PATH=$HOME/bin:/usr/local/bin:$PATH
 	
@@ -52,6 +57,7 @@
 	# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 	# Example format: plugins=(rails git textmate ruby lighthouse)
 	# Add wisely, as too many plugins slow down shell startup.
+  #plugins=(virtualenv)
 	plugins=(git)
 	
 	source $ZSH/oh-my-zsh.sh
@@ -76,14 +82,16 @@
 	# ssh
 	# export SSH_KEY_PATH="~/.ssh/rsa_id"
 	
-	# Set personal aliases, overriding those provided by oh-my-zsh libs,
-	# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-	# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-	# For a full list of active aliases, run `alias`.
-	#
-	# Example aliases
-	# alias zshconfig="mate ~/.zshrc"
-	# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# }}}
+
+# AUTOLOAD -- {{{
+#
+# ZSH functions to be loaded on source
+#
+
+  autoload -U history-pattern-search
+
 # }}}
 
 # KEYBINDINGS -- {{{
@@ -129,6 +137,13 @@
         zle -N zle-line-init
         zle -N zle-line-finish
     fi
+
+    #zle -N history-beginning-search-backward-end history-search-end
+    zle -N history-pattern-search-backward history-pattern-search
+    zle -N history-pattern-search-forward history-pattern-search
+    bindkey '^_' history-incremental-pattern-search-backward
+    bindkey '^[[1;5A' history-incremental-search-backward
+    bindkey '^[[1;5B' history-incremental-search-forward
 # }}}
 
 # DIRSTACK -- {{{
@@ -182,6 +197,11 @@
 # }}}
 
 # ALIASES -- {{{
+#
+# Set of aliased commands
+# For a full list of active aliases, run `alias`.
+#
+
     alias tm="tmux -2"
     alias ls="ls --color"
     alias sudo="sudo -E"
@@ -203,4 +223,12 @@
 source /etc/bash_completion.d/g4d
 alias lph='/google/data/ro/projects/predictive-analytics/learning-powerhouse/bin/lph'
 alias idea='/opt/intellij-ce-stable/bin/idea.sh'
+# }}}
+
+# ~~VIRTUALENV~~ {{{
+export WORKON_HOME=$HOME/workspace/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS=' -p /usr/bin/python3 '
+export PROJECT_HOME=$HOME/workspace/Devel
+source /usr/local/bin/virtualenvwrapper.sh
 # }}}
