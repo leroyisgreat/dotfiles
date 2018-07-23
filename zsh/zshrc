@@ -203,6 +203,7 @@
 #
 
     alias tm="tmux -2"
+    alias tmh="cat ~/.tmux.help"
     alias ls="ls --color"
     alias sudo="sudo -E"
     alias lisp="rlwrap sbcl"
