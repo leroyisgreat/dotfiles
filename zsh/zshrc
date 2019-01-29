@@ -142,8 +142,8 @@
     zle -N history-pattern-search-backward history-pattern-search
     zle -N history-pattern-search-forward history-pattern-search
     bindkey '^_' history-incremental-pattern-search-backward
-    bindkey '^[[1;5A' history-incremental-search-backward
-    bindkey '^[[1;5B' history-incremental-search-forward
+    bindkey '^[[1;5A' history-incremental-search-backward # <C-Up>
+    bindkey '^[[1;5B' history-incremental-search-forward  # <C-Down>, i think
 # }}}
 
 # DIRSTACK -- {{{
@@ -171,6 +171,12 @@
     export VISUAL=vim
     export EDITOR=$VISUAL
     export GTK_THEME=Numix
+    export TERMINAL=st
+
+    # PATH for s2019
+    PATH=$PATH:/home/rolls/workspace/serpent/64bit/:/home/rolls/workspace/serpent/64bit/wxsbuild/
+    export PATH
+    export SERPENTPATH=/home/rolls/workspace/serpent/programs:/home/rolls/workspace/serpent/lib:/home/rolls/workspace/serpent/wxslib
 # }}}
 
 # WORKING DIRECTORY -- {{{
@@ -200,15 +206,14 @@
 #
 # Set of aliased commands
 # For a full list of active aliases, run `alias`.
-#
-
-    alias tm="tmux -2"
+    alias tm="tmux -f ~/.config/tmux.conf -2"
     alias tmh="cat ~/.tmux.help"
     alias ls="ls --color"
     alias sudo="sudo -E"
     alias lisp="rlwrap sbcl"
     alias oct="octave --no-gui"
     alias clr="clear"
+    alias srp="rlwrap serpent64"
 
     # TaskWarrior
     alias tl="task list"
@@ -218,18 +223,4 @@
     alias tdel="task delete"
     alias tmod="task modify"
     alias tsyn="task sync"
-# }}}
-
-# ~~GOOGLE~~ {{{
-source /etc/bash_completion.d/g4d
-alias lph='/google/data/ro/projects/predictive-analytics/learning-powerhouse/bin/lph'
-alias idea='/opt/intellij-ce-stable/bin/idea.sh'
-# }}}
-
-# ~~VIRTUALENV~~ {{{
-export WORKON_HOME=$HOME/workspace/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS=' -p /usr/bin/python3 '
-export PROJECT_HOME=$HOME/workspace/Devel
-source /usr/local/bin/virtualenvwrapper.sh
 # }}}
