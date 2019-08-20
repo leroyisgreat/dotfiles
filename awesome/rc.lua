@@ -44,7 +44,7 @@ end
     beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/vapor1/theme.lua")
 
     -- This is used later as the default terminal and editor to run.
-    terminal = "termite"
+    terminal = "terminator"
     editor = os.getenv("EDITOR") or "nano"
     editor_cmd = terminal .. " -e " .. editor
 
@@ -78,7 +78,8 @@ end
     -- user defined
     browser    = "chromium --enable-dom-distiller"
     graphics   = "gimp"
-    lock       = "xscreensaver-command -lock"
+    --lock       = "xscreensaver-command -lock"
+    lock       = "cinnamon-screensaver-command --lock"
 -- }}}
 
 -- {{{ Helper functions
@@ -426,8 +427,8 @@ globalkeys = awful.util.table.join(
     -- Screen lock
     awful.key({ modkey, "Control" }, "l", function () awful.spawn(lock) end),
     -- Brightness
-    awful.key({ }, "XF86MonBrightnessDown", function () awful.spawn("xbacklight -dec 15") end),
-    awful.key({ }, "XF86MonBrightnessUp", function () awful.spawn("xbacklight -inc 15") end),
+    awful.key({ }, "XF86MonBrightnessDown", function () awful.spawn("xbacklight -dec 3") end),
+    awful.key({ }, "XF86MonBrightnessUp", function () awful.spawn("xbacklight -inc 2") end),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,

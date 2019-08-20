@@ -210,10 +210,8 @@
     alias tmh="cat ~/.tmux.help"
     alias ls="ls --color"
     alias sudo="sudo -E"
-    alias lisp="rlwrap sbcl"
     alias oct="octave --no-gui"
     alias clr="clear"
-    alias srp="rlwrap serpent64"
 
     # TaskWarrior
     alias tl="task list"
