@@ -46,7 +46,8 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+#bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id rofi -show drun -theme gruvbox-dark
 # }}}
 
 # MOVEMENT {{{
@@ -144,13 +145,14 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 # MEDIA KEYS {{{ 
 ## PulseAudio
-#bindsym XF86AudioRaiseVolume "exec amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+10 i3blocks"
-#bindsym XF86AudioLowerVolume "exec amixer -q -D pulse sset Master 5%- && pkill -RTMIN+10 i3blocks"
-#bindsym XF86AudioMute exec "amixer -q -D pulse sset Master toggle && pkill -RTMIN+10 i3blocks"
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl -- set-sink-volume 1 +5% && pkill -RTMIN+10 i3blocks"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pactl -- set-sink-volume 1 -5% && pkill -RTMIN+10 i3blocks"
+bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute 1 toggle && pkill -RTMIN+10 i3blocks"
 ## Alsa
-bindsym XF86AudioRaiseVolume exec "amixer -c 0 sset Master 5+ && pkill -RTMIN+10 i3blocks"
-bindsym XF86AudioLowerVolume exec "amixer -c 0 sset Master 5- && pkill -RTMIN+10 i3blocks"
-bindsym XF86AudioMute exec "amixer -c 0 sset Master toggle && pkill -RTMIN+10 i3blocks"
+#bindsym XF86AudioRaiseVolume exec "amixer -c 0 sset Master 5+ && pkill -RTMIN+10 i3blocks"
+#bindsym XF86AudioLowerVolume exec "amixer -c 0 sset Master 5- && pkill -RTMIN+10 i3blocks"
+#bindsym XF86AudioMute exec "amixer -c 0 sset Master toggle && pkill -RTMIN+10 i3blocks"
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
@@ -218,13 +220,14 @@ bindsym $mod+r mode "resize"
 # }}}
 
 # COLORS {{{
-client.focused          #007030 #007030 #ffffff #2b2b2b
-client.focused_inactive #888888 #2b2b2b #ffffff #2b2b2b
-client.unfocused        #888888 #2b2b2b #ffffff #2b2b2b
-client.urgent           #900000 #900000 #ffffff #2b2b2b
-client.placeholder      #bfbfbf #162025 #bfbfbf #75404b #75404b
+client.background       #2F1E2E
 
-client.background       #162025
+# class                 border  backgr. text    indicator child_border
+client.focused          #FEC418 #2F1E2E #FEC418 #EF6155
+client.focused_inactive #48B685 #2F1E2E #48B685 #EF6155
+client.unfocused        #A39E9B #2F1E2E #A39E9B #EF6155
+client.urgent           #EF6155 #2F1E2E #EF6155 #EF6155
+client.placeholder      #48B685 #2F1E2E #48B685 #75404b
 # }}}
 
 # STATUSBAR {{{
@@ -232,15 +235,16 @@ client.background       #162025
 # finds out, if available)
 bar {
 	colors {
-		background #162025
-		statusline #ffffff
-		separator #666666
+		background #2F1E2E
+		statusline #FEC418
+		separator #A39E9B
 
-		focused_workspace  #007030 #007030 #ffffff
-		active_workspace   #007030 #007030 #ffffff
-		inactive_workspace #888888 #2b2b2b #ffffff
-		urgent_workspace   #900000 #900000 #ffffff
-		binding_mode       #2f343a #900000 #ffffff
+    # class            border  backgr. text
+		focused_workspace  #FEC418 #2F1E2E #FEC418
+		active_workspace   #FEC418 #2F1E2E #FEC418
+		inactive_workspace #48B685 #2F1E2E #48B685
+		urgent_workspace   #EF6155 #2F1E2E #EF6155
+		binding_mode       #A39E9B #2F1E2E #A39E9B
 	}
 	#status_command i3status
 	status_command i3blocks -c ~/.config/i3/i3blocks.conf
