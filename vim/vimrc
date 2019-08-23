@@ -68,7 +68,8 @@
 " }}}
 
 " {{{ COLORING
-    colorscheme gruvbox
+    "colorscheme gruvbox
+    colorscheme neonwave
     set background=dark
     " for TMUX
     set t_Co=256
