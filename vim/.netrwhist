@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/home/leroyce/.git'
-let g:netrw_dirhist_2='/home/leroyce/workspace/gstreamermm/examples/hello_world'
-let g:netrw_dirhist_3='/home/leroyce/workspace/18500/UI/tests'
