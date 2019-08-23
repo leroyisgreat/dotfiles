@@ -172,11 +172,6 @@
     export EDITOR=$VISUAL
     export GTK_THEME=Numix
     export TERMINAL=st
-
-    # PATH for s2019
-    PATH=$PATH:/home/rolls/workspace/serpent/64bit/:/home/rolls/workspace/serpent/64bit/wxsbuild/
-    export PATH
-    export SERPENTPATH=/home/rolls/workspace/serpent/programs:/home/rolls/workspace/serpent/lib:/home/rolls/workspace/serpent/wxslib
 # }}}
 
 # WORKING DIRECTORY -- {{{
