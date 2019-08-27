@@ -167,8 +167,9 @@
     alias ls="ls --color"
     alias oct="octave --no-gui"
     alias sudo="sudo -E"
-    alias tm="tmux -f ~/.config/tmux.conf -2"
-    alias tmh="cat ~/.config/tmux.help"
+    alias tm="tmux -f ~/.config/tmux/tmux.conf -2"
+    alias tmh="cat ~/.config/tmux/tmux.help"
+    alias e="nvim"
 
     # Mercurial
     alias hga="hg add"
