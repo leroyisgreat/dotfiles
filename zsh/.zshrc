@@ -9,7 +9,7 @@
 	# Set name of the theme to load. Optionally, if you set this to "random"
 	# it'll load a random theme each time that oh-my-zsh is loaded.
 	# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-	ZSH_THEME="agnoster"
+	ZSH_THEME="work"
 	
 	# Uncomment the following line to use case-sensitive completion.
 	# CASE_SENSITIVE="true"
@@ -50,7 +50,6 @@
 # AUTOLOAD -- {{{
 #
 # ZSH functions to be loaded on source
-#
 
   autoload -U history-pattern-search
 
@@ -84,8 +83,14 @@
     [[ -n "${key[PageUp]}"   ]]  && bindkey  "${key[PageUp]}"   beginning-of-buffer-or-history
     [[ -n "${key[PageDown]}" ]]  && bindkey  "${key[PageDown]}" end-of-buffer-or-history
 
-    bindkey '[1;5D'   backward-word
-    bindkey '[1;5C'   forward-word
+    bindkey '<C-Left>'  backward-word
+    bindkey '<C-Right>' forward-word
+    bindkey ''        backward-delete-word
+    bindkey '<C-Del>'   forward-delete-word
+    # TODO: Fix these, they don't work perhaps because of Terminator.
+    #bindkey '<M-BS>'    backward-kill-line
+    #bindkey '^[[3;3~'   kill-line
+    #bindkey ''        kill-word
 
     # Finally, make sure the terminal is in application mode, when zle is
     # active. Only then are the values from $terminfo valid.
