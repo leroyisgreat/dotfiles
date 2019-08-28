@@ -5,7 +5,12 @@
 # *.[oa]
 # *~
 
+i3/i3blocks-contrib
 i3/i3blocks-contrib/*
+nvim/plugged
 nvim/plugged/*
+nvim/autoload
 nvim/autoload/*
 zsh/.zcomp*
+zsh/custom
+zsh/custom/*
