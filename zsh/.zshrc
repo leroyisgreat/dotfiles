@@ -142,26 +142,26 @@
 # }}}
 
 # WORKING DIRECTORY -- {{{
-	# function to change the current Working Directory
-    function cwd() {
-        dir=$(realpath $1)
-        if [[ -z "$dir" ]]; then
-            echo "ERROR: cannot set Working Directory to NULL"
-        elif [[ ! -d "$dir" ]]; then
-            echo "ERROR: "$1" not a directory"
-        else
-            echo $dir > $WDFILE
-            cd $(cat $WDFILE)
-        fi
-    }
+# function to change the current Working Directory
+function cwd() {
+  dir=$(realpath $1)
+  if [[ -z "$dir" ]]; then
+    echo "ERROR: cannot set Working Directory to NULL"
+  elif [[ ! -d "$dir" ]]; then
+    echo "ERROR: "$1" not a directory"
+  else
+    echo $dir > $WDFILE
+    cd $(cat $WDFILE)
+  fi
+}
 
-    # actually cd into the current Working Directory
-    WDFILE="$HOME/.cache/zsh/wd"
-    if [[ ! -f $WDFILE ]]; then
-        echo $HOME > $WDFILE
-    else
-        cd $(cat $WDFILE)
-    fi
+# actually cd into the current Working Directory
+WDFILE="$HOME/.cache/zsh/wd"
+if [[ ! -f $WDFILE ]]; then
+  echo $HOME > $WDFILE
+else
+  cd $(cat $WDFILE)
+fi
 # }}}
 
 # ALIASES -- {{{
@@ -169,12 +169,12 @@
 # Set of aliased commands
 # For a full list of active aliases, run `alias`.
     alias clr="clear"
+    alias e="nvim"
     alias ls="ls --color"
     alias oct="octave --no-gui"
-    alias sudo="sudo -E"
+    alias sudo="sudo -E "
     alias tm="tmux -f ~/.config/tmux/tmux.conf -2"
     alias tmh="cat ~/.config/tmux/tmux.help"
-    alias e="nvim"
 
     # Mercurial
     alias hga="hg add"
