@@ -25,9 +25,6 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
 #bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+d exec --no-startup-id rofi -show drun -theme gruvbox-dark
 # }}}
@@ -218,34 +215,41 @@ bindsym $mod+r mode "resize"
 font pango:Source Code Pro, Semibold 10
 
 # Primary Colors {{{
-# set primary gruvbox colorscheme colors
-set $aqua #689d68
-set $bg #282828
-set $blue #458588
-set $darkgray #1d2021
-set $gray #a89984
-set $green #98971a
-set $purple #b16286
-set $red #cc241d
-set $white #ffffff
-set $yellow #d79921
+set $bg           #282828
+set $fg           #ebdbb2
+set $black        #282828
+set $darkgrey     #928374
+set $darkred      #cc241d
+set $red          #fb4934
+set $darkgreen    #98971a
+set $gren         #b8bb26
+set $darkyellow   #d79921
+set $yellow       #fabd2f
+set $darkblue     #458588
+set $blue         #83a598
+set $darkmagenta  #b16286
+set $magenta      #d3869b
+set $darkcyan     #689d6a
+set $cyan         #8ec07c
+set $lightgrey    #a89984
+set $white        #ebdbb2
 # }}}
 
 # Bar {{{
 bar {
-    position bottom
+  position bottom
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
     colors {
-        # bar background color
-        background $bg
-        # text color used for blocks that do not have a color specified.
-        statusline $yellow
-        # workspaces section            
-        #                    border  backgr. text
-        focused_workspace    $aqua $aqua $darkgray
-        inactive_workspace   $darkgray $darkgray $yellow
-        active_workspace     $darkgray $darkgray $yellow
-        urgent_workspace     $red $red $bg
+      background          $bg
+      statusline          $yellow
+      separator           $lightgrey
+
+      #                   border    backgr.     text
+      focused_workspace   $aqua     $aqua       $darkgray
+      active_workspace    $darkgray $darkgray   $yellow
+      inactive_workspace  $darkgray $darkgray   $yellow
+      urgent_workspace    $red      $red        $bg
+      #binding_mode        $red      $red        $bg
     }
 }
 # }}}
@@ -254,9 +258,9 @@ bar {
 default_border normal 3
 
 # class                 border    backgr    text      indicator child_border
-client.focused          $darkgray $yellow   $darkgray $purple   $darkgray
-client.focused_inactive $darkgray $darkgray $yellow   $purple   $darkgray
-client.unfocused        $darkgray $darkgray $yellow   $purple   $darkgray
+client.focused          $darkgray $yellow   $darkgray $magenta  $darkgray
+client.focused_inactive $darkgray $darkgray $yellow   $magenta  $darkgray
+client.unfocused        $darkgray $darkgray $yellow   $magenta  $darkgray
 client.urgent           $red      $red      $white    $red      $red
 # }}}
 # }}}

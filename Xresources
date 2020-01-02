@@ -63,15 +63,6 @@ URxvt.keysym.Home: \033[1~
 URxvt.keysym.End: \033[4~
 URxvt.keysym.KP_Home: \033[1~
 URxvt.keysym.KP_End:  \033[4~
-!! Copy Paste & Other Extensions
-!URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select,selection-to-clipboard
-!URxvt.copyCommand: xclip -i -selection clipboard
-!URxvt.pasteCommand: xclip -o -selection clipboard
-!URxvt.keysym.M-c: perl:clipboard:copy
-!URxvt.keysym.M-v: perl:clipboard:paste
-!URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
-!URxvt.keysym.M-Escape: perl:keyboard-select:activate
-!URxvt.keysym.M-s: perl:keyboard-select:search
 URxvt.keysym.M-u: perl:url-select:select_next
 !! URLs
 URxvt.urlLauncher: /usr/bin/google-chrome
