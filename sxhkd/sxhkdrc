@@ -24,7 +24,7 @@ super + space
 #
 
 # quit/restart bspwm
-super + shift + e; {l,e,r,Shift + r, Shift + s}
+super + shift + e; {l,e,r,shift + r, shift + s}
 	{cinnamon-screensaver-command --lock, bspc quit, pkill -USR1 -x sxhkd & $XDG_CONFIG_HOME/bspwm/bspwmrc, systemctl reboot, systemctl halt}
 
 # close and kill
