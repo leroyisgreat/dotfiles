@@ -19,21 +19,13 @@ super + Return
 super + space
 	rofi -show drun -theme gruvbox-dark
 
-# lockscreen
-super + shift + alt + l
-	cinnamon-screensaver-command --lock
-
-# make sxhkd reload its configuration files:
-super + shift + r
-	pkill -USR1 -x sxhkd
-
 #
 # bspwm hotkeys
 #
 
 # quit/restart bspwm
-super + shift + {e,r}
-	bspc {quit,wm -r}
+super + shift + e; {l,e,r,Shift + r, Shift + s}
+	{cinnamon-screensaver-command --lock, bspc quit, pkill -USR1 -x sxhkd & $XDG_CONFIG_HOME/bspwm/bspwmrc, systemctl reboot, systemctl halt}
 
 # close and kill
 super + {_,shift + }q
@@ -49,7 +41,7 @@ super + y
 
 # swap the current node and the biggest node
 super + g
-	bspc node -s biggest
+	bspc node -s biggest.local
 
 #
 # state/flags

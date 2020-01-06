@@ -8,7 +8,7 @@
 
 sxhkd &
 
-$XDG_CONFIG_HOME/polybar/launch.sh &
+sleep 1s && $XDG_CONFIG_HOME/polybar/launch.sh &
 
 bspc config border_width            2
 bspc config window_gap              12
