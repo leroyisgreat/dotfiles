@@ -1,0 +1,62 @@
+$include /etc/inputrc
+
+# Colored autosuggestion from LS_COLORS
+set colored-stats On
+
+# For autocompletion
+set completion-ignore-case On
+
+# Truncate common prefixes for autocompletion results
+set completion-prefix-display-length 3
+
+# Specifically for directory symlinks, appends a "/"
+set mark-symlinked-directories On
+
+# Prevent bell and just reprint the autosuggestions
+set show-all-if-ambiguous On
+
+# Prevent bell and just reprint the autosuggestions
+set show-all-if-unmodified On
+
+# Marks completion results with a character indicating stat info
+set visible-stats On
+
+# Make sure we don't output everything on the 1 line
+set horizontal-scroll-mode Off
+
+# Enable 8bit input
+set meta-flag On 
+set input-meta On
+
+# Turns off 8th bit stripping
+set convert-meta Off
+
+# Keep the 8th bit for display
+set output-meta On
+
+# none, visible or audible
+set bell-style none
+
+# All of the following map the escape sequence of the 
+# value contained inside the 1st argument to the 
+# readline specific functions
+
+"\eOd": backward-word
+"\eOc": forward-word
+
+# for linux console
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+"\e[3~": delete-char
+"\e[2~": quoted-insert
+
+# for xterm
+"\eOH": beginning-of-line
+"\eOF": end-of-line
+
+"\C-p":history-search-backward
+"\C-n":history-search-forward
+
+# End /etc/inputrc

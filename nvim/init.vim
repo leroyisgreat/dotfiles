@@ -4,6 +4,7 @@
 " @date   27.08.2019
 "
 " Configuration for NeoVim, built from an old vimrc.
+" TODO: Reduce number of groupings, make this more sensible.
 
 " {{{ INSTALLATION
 " Plug
@@ -50,6 +51,11 @@ set autoread
 " {{{ MOVEMENT
 " Vertical jump with 'j' and 'k'
 set so=7
+" Allow mouse scrolling in RXVT-Unicode. Literally enables mouse in Normal,
+" Visual, Insert, and Command-line mode.
+" Note: this also prevents mouse selection from selecting the Line Numbers or
+" through splits. Preventing mouse in visual mode could be useful.
+set mouse=a
 " }}}
 
 " {{{ BACKSPACE
@@ -99,6 +105,10 @@ set colorcolumn=80
 
 " {{{ FORMATTING
 set encoding=utf8
+
+" use » to mark Tabs and ° to mark trailing whitespace. This is a
+" non-obtrusive way to mark these special characters.
+set list listchars=tab:»\ ,trail:°
 " }}}
 
 " {{{ FOLDING
@@ -147,4 +157,7 @@ set nu
 imap <C-BS> <C-W>
 map <ESC>[1;5D <C-Left>
 map <ESC>[1;5C <C-Right>
+
+" trim whitespace before write
+:ca trim %s/\s\+$//e
 " }}}

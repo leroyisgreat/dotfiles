@@ -6,6 +6,13 @@
 	# Path to your oh-my-zsh installation.
 	export ZSH=$HOME/.oh-my-zsh
 	
+	# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+	# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+	# Example format: plugins=(rails git textmate ruby lighthouse)
+	# Add wisely, as too many plugins slow down shell startup.
+  #plugins=(virtualenv)
+	plugins=(git zsh-autosuggestions)
+	
 	# Set name of the theme to load. Optionally, if you set this to "random"
 	# it'll load a random theme each time that oh-my-zsh is loaded.
 	# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -37,13 +44,6 @@
 	# Would you like to use another custom folder than $ZSH/custom?
 	# ZSH_CUSTOM=/path/to/new-custom-folder
 	
-	# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-	# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-	# Example format: plugins=(rails git textmate ruby lighthouse)
-	# Add wisely, as too many plugins slow down shell startup.
-  #plugins=(virtualenv)
-	plugins=(git mercurial zsh-autosuggestions)
-	
 	source $ZSH/oh-my-zsh.sh
 # }}}
 
@@ -52,6 +52,7 @@
 # ZSH functions to be loaded on source
 
   autoload -U history-pattern-search
+  autoload -U add-zsh-hook
 
 # }}}
 
@@ -85,8 +86,8 @@
 
     bindkey '<C-Left>'  backward-word
     bindkey '<C-Right>' forward-word
-    bindkey ''        backward-delete-word
-    bindkey '<C-Del>'   forward-delete-word
+    bindkey ''        backward-delete-word  # <C-backspace>
+    bindkey '5~'        delete-word           # <C-del>
     # TODO: Fix these, they don't work perhaps because of Terminator.
     #bindkey '<M-BS>'    backward-kill-line
     #bindkey '^[[3;3~'   kill-line
@@ -135,33 +136,33 @@
 # }}}
 
 # EXPORTS -- {{{
-    export VISUAL=vim
+    export VISUAL=nvim
     export EDITOR=$VISUAL
     export GTK_THEME=Numix
-    export TERMINAL=st
+    export TERMINAL=rxvt-unicode
 # }}}
 
 # WORKING DIRECTORY -- {{{
-	# function to change the current Working Directory
-    function cwd() {
-        dir=$(realpath $1)
-        if [[ -z "$dir" ]]; then
-            echo "ERROR: cannot set Working Directory to NULL"
-        elif [[ ! -d "$dir" ]]; then
-            echo "ERROR: "$1" not a directory"
-        else
-            echo $dir > $WDFILE
-            cd $(cat $WDFILE)
-        fi
-    }
+# function to change the current Working Directory
+function cwd() {
+  dir=$(realpath $1)
+  if [[ -z "$dir" ]]; then
+    echo "ERROR: cannot set Working Directory to NULL"
+  elif [[ ! -d "$dir" ]]; then
+    echo "ERROR: "$1" not a directory"
+  else
+    echo $dir > $WDFILE
+    cd $(cat $WDFILE)
+  fi
+}
 
-    # actually cd into the current Working Directory
-    WDFILE="$HOME/.cache/zsh/wd"
-    if [[ ! -f $WDFILE ]]; then
-        echo $HOME > $WDFILE
-    else
-        cd $(cat $WDFILE)
-    fi
+# actually cd into the current Working Directory
+WDFILE="$HOME/.cache/zsh/wd"
+if [[ ! -f $WDFILE ]]; then
+  echo $HOME > $WDFILE
+else
+  cd $(cat $WDFILE)
+fi
 # }}}
 
 # ALIASES -- {{{
@@ -169,12 +170,12 @@
 # Set of aliased commands
 # For a full list of active aliases, run `alias`.
     alias clr="clear"
+    alias e="nvim"
     alias ls="ls --color"
     alias oct="octave --no-gui"
     alias sudo="sudo -E "
     alias tm="tmux -f ~/.config/tmux/tmux.conf -2"
     alias tmh="cat ~/.config/tmux/tmux.help"
-    alias e="nvim"
 
     # Mercurial
     alias hga="hg add"
