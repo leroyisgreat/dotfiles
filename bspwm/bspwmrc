@@ -1,0 +1,81 @@
+#!/bin/sh
+# -*- tab-width: 4; encoding: utf-8 -*-
+#
+## @file bspwmrc
+## @author LeRoy Gary <leroyisgreat@gmail.com>
+## @brief BSPWM config file
+##
+
+sxhkd &
+
+$XDG_CONFIG_HOME/polybar/launch.sh &
+
+bspc config border_width            2
+bspc config window_gap              12
+bspc config top_padding             0
+
+bspc config split_ratio             0.52
+bspc config borderless_monocle      true
+bspc config gapless_monocle         true
+
+bspc config focus_follows_pointer   true
+
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+
+# Colors
+FOREGROUND=$(xrdb -query | grep 'foreground:'| awk '{print $NF}')
+BACKGROUND=$(xrdb -query | grep 'background:'| awk '{print $NF}')
+BLACK=$(xrdb -query | grep 'color0:'| awk '{print $NF}')
+RED=$(xrdb -query | grep 'color1:'| awk '{print $NF}')
+GREEN=$(xrdb -query | grep 'color2:'| awk '{print $NF}')
+YELLOW=$(xrdb -query | grep 'color3:'| awk '{print $NF}')
+BLUE=$(xrdb -query | grep 'color4:'| awk '{print $NF}')
+MAGENTA=$(xrdb -query | grep 'color5:'| awk '{print $NF}')
+CYAN=$(xrdb -query | grep 'color6:'| awk '{print $NF}')
+LIGHTGREY=$(xrdb -query | grep 'color7:'| awk '{print $NF}')
+DARKGREY=$(xrdb -query | grep 'color8:'| awk '{print $NF}')
+DARKRED=$(xrdb -query | grep 'color9:'| awk '{print $NF}')
+DARKGREEN=$(xrdb -query | grep 'color10:'| awk '{print $NF}')
+DARKYELLOW=$(xrdb -query | grep 'color11:'| awk '{print $NF}')
+DARKBLUE=$(xrdb -query | grep 'color12:'| awk '{print $NF}')
+DARKMAGENTA=$(xrdb -query | grep 'color13:'| awk '{print $NF}')
+DARKCYAN=$(xrdb -query | grep 'color14:'| awk '{print $NF}')
+WHITE=$(xrdb -query | grep 'color15:'| awk '{print $NF}')
+
+bspc config focused_border_color            "$DARKYELLOW"
+bspc config active_border_color             "$BACKGROUND"
+bspc config normal_border_color             "$BLACK"
+bspc config urgent_border_color             "$DARKBLUE"
+bspc config presel_feedback_color           "$YELLOW"
+bspc config focused_locked_border_color     "$DARKRED"
+bspc config active_locked_border_color      "$RED"
+bspc config normal_locked_border_color      "$BLACK"
+bspc config focused_sticky_border_color     "$DARKCYAN"
+bspc config active_sticky_border_color      "$CYAN"
+bspc config normal_sticky_border_color      "$BLACK"
+bspc config focused_private_border_color    "$DARKBLUE"
+bspc config active_private_border_color     "$BLUE"
+bspc config normal_private_border_color     "$BLACK"
+
+## bspc config history_aware_focus         true
+## 
+## # Float windows opened from the panel
+## bspc rule --add URxvt:popup                 state=floating
+## # Make scratchpad floating and sticky
+## bspc rule --add URxvt:scratchpad            sticky=on state=floating border=off
+## # Set wallpaper
+## hsetroot -solid "$brightblack"
+## 
+## # Load session
+## . "$BSPWM_CONFIG/restore.cfg"
+## if [ -e "$BSPWM_STATE" ] ; then
+## 	bspc wm --load-state "$BSPWM_STATE"
+## 	bspc wm --adopt-orphans
+## 	rm "$BSPWM_STATE"
+## fi

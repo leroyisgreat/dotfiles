@@ -24,8 +24,6 @@ bindsym $mod+Return exec rxvt-unicode
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-#bindsym $mod+d exec dmenu_run
-#bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+d exec --no-startup-id rofi -show drun -theme gruvbox-dark
 # }}}
 
@@ -245,9 +243,9 @@ bar {
       separator           $lightgrey
 
       #                   border    backgr.     text
-      focused_workspace   $aqua     $aqua       $darkgray
-      active_workspace    $darkgray $darkgray   $yellow
-      inactive_workspace  $darkgray $darkgray   $yellow
+      focused_workspace   $darkblue $darkblue   $yellow
+      active_workspace    $darkblue $darkblue   $bg
+      inactive_workspace  $darkgray $darkgray   $bg
       urgent_workspace    $red      $red        $bg
       #binding_mode        $red      $red        $bg
     }
@@ -258,9 +256,9 @@ bar {
 default_border normal 3
 
 # class                 border    backgr    text      indicator child_border
-client.focused          $darkgray $yellow   $darkgray $magenta  $darkgray
-client.focused_inactive $darkgray $darkgray $yellow   $magenta  $darkgray
-client.unfocused        $darkgray $darkgray $yellow   $magenta  $darkgray
+client.focused          $bg       $yellow   $bg       $magenta  $darkgray
+client.focused_inactive $bg       $bg       $yellow   $magenta  $darkgray
+client.unfocused        $bg       $bg       $yellow   $magenta  $darkgray
 client.urgent           $red      $red      $white    $red      $red
 # }}}
 # }}}
