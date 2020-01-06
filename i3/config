@@ -125,9 +125,9 @@ assign [instance="google-chrome \(/tmp"] $ws10
 # MEDIA KEYS {{{ 
 # Here we map the F-keys and media keys to the same command.
 # TODO: add keybinding modes for F-key control or Media key control
-set $mk1  "pactl set-sink-mute 0 toggle && pkill -RTMIN+10 i3blocks"
-set $mk2  "pactl -- set-sink-volume 0 -5% && pkill -RTMIN+10 i3blocks"
-set $mk3  "pactl -- set-sink-volume 0 +5% && pkill -RTMIN+10 i3blocks"
+set $mk1  "~/.config/i3/volume.sh -m && pkill -RTMIN+10 i3blocks"
+set $mk2  "~/.config/i3/volume.sh -d && pkill -RTMIN+10 i3blocks"
+set $mk3  "~/.config/i3/volume.sh -u && pkill -RTMIN+10 i3blocks"
 set $mk4  ""
 set $mk5  "xbacklight -dec 20"
 set $mk6  "xbacklight -inc 20"
@@ -154,8 +154,8 @@ bindsym $mod+F12 exec --no-startup-id $mk12
 
 # Media keys
 bindsym XF86AudioMute         exec --no-startup-id $mk1
-bindsym XF86AudioRaiseVolume  exec --no-startup-id $mk2
-bindsym XF86AudioLowerVolume  exec --no-startup-id $mk3
+bindsym XF86AudioLowerVolume  exec --no-startup-id $mk2
+bindsym XF86AudioRaiseVolume  exec --no-startup-id $mk3
 bindsym XF86MonBrightnessDown exec $mk5
 bindsym XF86MonBrightnessUp   exec $mk6
 # }}}
@@ -166,12 +166,13 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+set $mode_system System (Shift+s) shutdown, (e) logout, (l) lock, (s) suspend, (r) reboot
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3exit `cinnamon-screensaver-command --lock`, mode "default"
-    bindsym e exec --no-startup-id i3exit `i3-msg exit`, mode "default"
-    bindsym r exec --no-startup-id i3exit `shutdown -r now`, mode "default"
     bindsym Shift+s exec --no-startup-id i3exit `shutdown -h now`, mode "default"
+    bindsym e exec --no-startup-id i3exit `i3-msg exit`, mode "default"
+    bindsym l exec --no-startup-id i3exit `cinnamon-screensaver-command --lock`, mode "default"
+    bindsym r exec --no-startup-id i3exit `shutdown -r now`, mode "default"
+    bindsym s exec --no-startup-id i3exit `cinnamon-screensaver-command --lock && systemctl suspend`, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
