@@ -20,6 +20,25 @@ super + space
 	rofi -show drun -theme gruvbox-dark
 
 #
+# F-keys
+#
+
+{super + F1, AudioMute}
+	~/.config/volume.sh -m
+
+{super + F2, AudioLowerVolume}
+	~/.config/volume.sh -d
+
+{super + F3, AudioRaiseVolume}
+	~/.config/volume.sh -u
+
+{super + F5, MonBrightnessDown}
+	xbacklight -dec 10
+
+{super + F6, MonBrightnessUp}
+	xbacklight -inc 10
+
+#
 # bspwm hotkeys
 #
 
