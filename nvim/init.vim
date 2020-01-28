@@ -161,3 +161,5 @@ map <ESC>[1;5C <C-Right>
 " trim whitespace before write
 :ca trim %s/\s\+$//e
 " }}}
+
+source ~/.config/work.nvim
