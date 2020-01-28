@@ -140,6 +140,7 @@
     export EDITOR=$VISUAL
     export GTK_THEME=Numix
     export TERMINAL=rxvt-unicode
+    export LC_TYPE=en_US.UTF-8
 # }}}
 
 # WORKING DIRECTORY -- {{{
