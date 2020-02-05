@@ -12,5 +12,5 @@ nvim/plugged/*
 nvim/autoload
 nvim/autoload/*
 zsh/.zcomp*
-zsh/custom
-zsh/custom/*
+zsh/custom/plugins
+zsh/custom/work.zsh-theme

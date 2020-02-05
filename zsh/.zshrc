@@ -3,49 +3,49 @@
 # Boilerplate from installing OH-MY-ZSH
 # I'm leaving these comments here in case I change my mind about them
 
-	# Path to your oh-my-zsh installation.
-	export ZSH=$HOME/.oh-my-zsh
-	
-	# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-	# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-	# Example format: plugins=(rails git textmate ruby lighthouse)
-	# Add wisely, as too many plugins slow down shell startup.
-  #plugins=(virtualenv)
-	plugins=(git zsh-autosuggestions)
-	
-	# Set name of the theme to load. Optionally, if you set this to "random"
-	# it'll load a random theme each time that oh-my-zsh is loaded.
-	# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-	ZSH_THEME="work"
-	
-	# Uncomment the following line to use case-sensitive completion.
-	# CASE_SENSITIVE="true"
-	
-	# Uncomment the following line to use hyphen-insensitive completion. Case
-	# sensitive completion must be off. _ and - will be interchangeable.
-	# HYPHEN_INSENSITIVE="true"
-	
-	# Uncomment the following line to enable command auto-correction.
-	# ENABLE_CORRECTION="true"
-	
-	# Uncomment the following line to display red dots whilst waiting for completion.
-	COMPLETION_WAITING_DOTS="true"
-	
-	# Uncomment the following line if you want to disable marking untracked files
-	# under VCS as dirty. This makes repository status check for large repositories
-	# much, much faster.
-	# DISABLE_UNTRACKED_FILES_DIRTY="true"
-	
-	# Uncomment the following line if you want to change the command execution time
-	# stamp shown in the history command output.
-	# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-	# HIST_STAMPS="mm/dd/yyyy"
-	
-	# Would you like to use another custom folder than $ZSH/custom?
-	# ZSH_CUSTOM=/path/to/new-custom-folder
-	
-	source $ZSH/oh-my-zsh.sh
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git zsh-autosuggestions)
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+[[ -f "$ZSH_CUSTOM/work.zsh-theme" ]] && ZSH_THEME="work" || ZSH_THEME="home"
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+source $ZSH/oh-my-zsh.sh
 # }}}
+
+function include() {
+  [[ -f "$1" ]] && source "$1"
+}
 
 # AUTOLOAD -- {{{
 #
@@ -135,14 +135,6 @@
     setopt pushdminus
 # }}}
 
-# EXPORTS -- {{{
-    export VISUAL=nvim
-    export EDITOR=$VISUAL
-    export GTK_THEME=Numix
-    export TERMINAL=rxvt-unicode
-    export LC_TYPE=en_US.UTF-8
-# }}}
-
 # WORKING DIRECTORY -- {{{
 # function to change the current Working Directory
 function cwd() {
@@ -197,5 +189,5 @@ fi
     alias tsyn="task sync"
 # }}}
 
-source $ZDOTDIR/.zprofile # Surprise! Some LightDM versions ignore .profile :(
-source ~/.config/workrc
+include $ZDOTDIR/.zprofile # Surprise! Some LightDM versions ignore .profile :(
+include $XDG_CONFIG_HOME/workrc
