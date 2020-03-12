@@ -3,8 +3,8 @@
 # see https://medium.com/@Drew_Stokes/bash-argument-parsing-54f3b81a6a8f for
 # interesting bash argument parsing done well.
 
-#sink=`pactl list short sinks | grep RUNNING | cut -f1`                                                                                                                    
-sink=`pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
+sink=`pactl list short sinks | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
+sour=`pactl list short sources | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
 if [[ -z $sink ]]
 then
   sink=0
@@ -32,6 +32,12 @@ Volume -5%" -t 1000
       notify-send "Sink: $sink
 Volume Mute Toggle" -t 1000
       pactl set-sink-mute $sink toggle 
+      shift
+      ;;
+    -p)
+      notify-send "Source: $sour
+Mic Mute Toggle" -t 1000
+      pactl set-source-mute $sour toggle 
       shift
       ;;
     -*|--*=) # unsupported flags

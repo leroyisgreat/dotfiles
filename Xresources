@@ -52,6 +52,11 @@ URxvt.scrollBar_right: false
 URxvt.urgentOnBell: true
 URxvt.depth: 24
 URxvt.iso14755: false
+!! Zoom/Viewfinder
+URxvt.keysym.Control-plus:    font-size:increase
+URxvt.keysym.Control-minus:   font-size:decrease
+URxvt.keysym.Control-equal:   font-size:reset
+URxvt.keysym.Control-slash:   font-size:show
 !! Common Keybinds for Navigations
 URxvt.keysym.Shift-Up: command:\033]720;1\007
 URxvt.keysym.Shift-Down: command:\033]721;1\007

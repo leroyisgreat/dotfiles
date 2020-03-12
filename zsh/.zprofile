@@ -12,6 +12,3 @@ if [[ -z "$TMUX" ]]; then
 else
   cat ~/.config/tmux/tmux.help
 fi
-
-XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CONFIG_HOME
