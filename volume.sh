@@ -6,9 +6,14 @@
 # TODO: replace sed with something more readable, probably awk
 snk=`pactl list short sinks | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
 src=`pactl list short sources | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
-if [[ -z $snk ]]
-then
+if [[ -z $snk ]]; then
   snk=0
+fi
+
+if [[ -z $src ]]; then
+  # For whatever reason, there are two sources where 0 is a dummy
+  # TODO: find a more reliable way to do this
+  src=1
 fi
 
 while (( "$#" )); do

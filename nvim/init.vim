@@ -6,6 +6,13 @@
 " Configuration for NeoVim, built from an old vimrc.
 " TODO: Reduce number of groupings, make this more sensible.
 
+" Include checks for file existence before sourcing.
+function! Include(src)
+  if !empty(glob(a:src))
+    source a:src
+  endif
+endfunc
+
 " {{{ INSTALLATION
 " Plug
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -162,4 +169,4 @@ map <ESC>[1;5C <C-Right>
 :ca trim %s/\s\+$//e
 " }}}
 
-source ~/.config/work/work.nvim
+call Include("$XDG_CONFIG_HOME/work/work.nvim")

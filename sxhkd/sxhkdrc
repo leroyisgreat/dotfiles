@@ -33,7 +33,7 @@ super + space
 	$XDG_CONFIG_HOME/volume.sh -u
 
 {super + F4, AudioMicMute}
-	~/.config/volume.sh -p
+	$XDG_CONFIG_HOME/volume.sh -p
 
 {super + F5, MonBrightnessDown}
 	xbacklight -dec 10
