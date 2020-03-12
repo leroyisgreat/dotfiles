@@ -168,6 +168,7 @@ fi
     alias oct="octave --no-gui"
     alias sudo="sudo -E "
     alias tm="tmux -f ~/.config/tmux/tmux.conf -2"
+    alias tma="tmux attach-session"
     alias tmh="cat ~/.config/tmux/tmux.help"
 
     # Mercurial
@@ -190,4 +191,4 @@ fi
 # }}}
 
 include $ZDOTDIR/.zprofile # Surprise! Some LightDM versions ignore .profile :(
-include $XDG_CONFIG_HOME/workrc
+include $XDG_CONFIG_HOME/work/workrc

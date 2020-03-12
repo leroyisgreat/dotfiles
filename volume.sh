@@ -1,10 +1,10 @@
 #!/bin/sh
 
-# see https://medium.com/@Drew_Stokes/bash-argument-parsing-54f3b81a6a8f for
-# interesting bash argument parsing done well.
+# Based off of
+# https://medium.com/@Drew_Stokes/bash-argument-parsing-54f3b81a6a8f
 
-#sink=`pactl list short sinks | grep RUNNING | cut -f1`                                                                                                                    
-sink=`pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
+# TODO: replace sed with something more readable, probably awk
+sink=`pactl list short sinks | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
 if [[ -z $sink ]]
 then
   sink=0
@@ -40,4 +40,3 @@ Volume Mute Toggle" -t 1000
       ;;
   esac
 done
-

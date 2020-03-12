@@ -162,4 +162,4 @@ map <ESC>[1;5C <C-Right>
 :ca trim %s/\s\+$//e
 " }}}
 
-source ~/.config/work.nvim
+source ~/.config/work/work.nvim

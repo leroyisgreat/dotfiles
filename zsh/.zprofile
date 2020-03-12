@@ -3,9 +3,17 @@
 # local session for opening terminals on-device, and another that will always
 # open if connection remotely.
 
+# TODO: come up with a clever way to case on being inside IntelliJ
+# IDEA=$(pgrep -x idea.sh)
+
 if [[ -z "$TMUX" ]]; then
   if [ "$SSH_CONNECTION" != "" ]; then
     tm attach-session -t ssh_tmux || tm new-session -s ssh_tmux
+  # In-IDE terminals
+  elif [[ -v $CLION ]]; then
+    tm attach-session -t clion_tmux || tm new-session -s clion_tmux
+  elif [[ -v $IDEA ]]; then
+    tm attach-session -t idea_tmux || tm new-session -s idea_tmux
   else
     tm attach-session -t lo_tmux || tm new-session -s lo_tmux
   fi
