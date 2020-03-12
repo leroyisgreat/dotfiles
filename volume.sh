@@ -1,43 +1,44 @@
 #!/bin/sh
 
-# see https://medium.com/@Drew_Stokes/bash-argument-parsing-54f3b81a6a8f for
-# interesting bash argument parsing done well.
+# Based off of
+# https://medium.com/@Drew_Stokes/bash-argument-parsing-54f3b81a6a8f
 
-sink=`pactl list short sinks | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
-sour=`pactl list short sources | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
-if [[ -z $sink ]]
+# TODO: replace sed with something more readable, probably awk
+snk=`pactl list short sinks | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
+src=`pactl list short sources | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
+if [[ -z $snk ]]
 then
-  sink=0
+  snk=0
 fi
 
 while (( "$#" )); do
   case "$1" in
     -s)
-      sink=$2
+      snk=$2
       shift 2
       ;;
     -u)
-      notify-send "Sink: $sink
+      notify-send "Sink: $snk
 Volume +5%" -t 1000
-      pactl -- set-sink-volume $sink +5%
+      pactl -- set-sink-volume $snk +5%
       shift
       ;;
     -d)
-      notify-send "Sink: $sink
+      notify-send "Sink: $snk
 Volume -5%" -t 1000
-      pactl -- set-sink-volume $sink -5%
+      pactl -- set-sink-volume $snk -5%
       shift
       ;;
     -m)
-      notify-send "Sink: $sink
+      notify-send "Sink: $snk
 Volume Mute Toggle" -t 1000
-      pactl set-sink-mute $sink toggle 
+      pactl set-sink-mute $snk toggle 
       shift
       ;;
     -p)
-      notify-send "Source: $sour
+      notify-send "Source: $src
 Mic Mute Toggle" -t 1000
-      pactl set-source-mute $sour toggle 
+      pactl set-source-mute $src toggle 
       shift
       ;;
     -*|--*=) # unsupported flags
@@ -46,4 +47,3 @@ Mic Mute Toggle" -t 1000
       ;;
   esac
 done
-

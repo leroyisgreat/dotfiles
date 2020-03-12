@@ -24,13 +24,13 @@ super + space
 #
 
 {super + F1, AudioMute}
-	~/.config/volume.sh -m
+	$XDG_CONFIG_HOME/volume.sh -m
 
 {super + F2, AudioLowerVolume}
-	~/.config/volume.sh -d
+	$XDG_CONFIG_HOME/volume.sh -d
 
 {super + F3, AudioRaiseVolume}
-	~/.config/volume.sh -u
+	$XDG_CONFIG_HOME/volume.sh -u
 
 {super + F4, AudioMicMute}
 	~/.config/volume.sh -p
@@ -40,6 +40,10 @@ super + space
 
 {super + F6, MonBrightnessUp}
 	xbacklight -inc 10
+
+# Screenshot
+{super + F12, Print}
+	import $HOME/screenshots/$(date +"%d-%m-%Y-%H:%M").png
 
 #
 # bspwm hotkeys

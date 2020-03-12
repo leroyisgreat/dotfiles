@@ -11,6 +11,7 @@
 #
 
 # fifo setup for sxhkd
+source ~/.zshenv
 export SXHKD_FIFO=/tmp/sxhkd-fifo
 
 [ -e "$SXHKD_FIFO" ] && rm "$SXHKD_FIFO"
@@ -28,6 +29,8 @@ $XDG_CONFIG_HOME/bspwm/melonpanel
 #
 # BSPWM config
 #
+
+wmname LG3D &
 
 bspc config ignore_ewmh_focus true
 
