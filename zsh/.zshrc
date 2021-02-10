@@ -6,9 +6,20 @@ function include() {
 }
 # }}}
 
+include $XDG_CONFIG_HOME/work/workrc
+include $ZDOTDIR/.zprofile # Surprise! Some LightDM versions ignore .profile :(
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/workspace/dotfiles/zsh/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Plugins {{{
 # Autocomplete from History
 include $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8,underline"
 
 # Better command script highlighting
 include $ZSH_CUSTOM/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
@@ -25,6 +36,7 @@ fi
 autoload -U add-zsh-hook
 # Enable Ctrl-x-e to edit command line
 autoload -U edit-command-line
+zle -N edit-command-line
 # }}}
 
 # Keybindings {{{
@@ -61,8 +73,10 @@ bindkey '^[[1;5C'   forward-word          # <C-Right>
 bindkey ''        backward-delete-word  # <C-backspace>
 bindkey '^[[3;5~'   delete-word           # <C-del>
 # Broken!
-#bindkey '<M-BS>'    backward-kill-line        # <M-backspace>
-bindkey '^[^[[3~'   kill-line                 # <M-del>
+#bindkey '<M-BS>'    backward-kill-line    # <M-backspace>
+bindkey '^[^[[3~'   kill-line             # <M-del>
+
+bindkey '^x^e' edit-command-line          # <C-x><C-e>
 
 # Vi switch from Insert to Normal (Command) mode
 # Alt-Backspace is... broken or something... on my machine and maps to ^[,
@@ -84,13 +98,6 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     zle -N zle-line-init
     zle -N zle-line-finish
 fi
-
-#zle -N history-pattern-search-backward history-pattern-search
-#zle -N history-pattern-search-forward history-pattern-search
-
-#bindkey '^_' history-incremental-pattern-search-backward
-#bindkey '^[[1;5A' history-incremental-search-backward # <C-Up>
-#bindkey '^[[1;5B' history-incremental-search-forward  # <C-Down>
 # }}}
 
 # Dirstack {{{
@@ -148,29 +155,14 @@ alias tl="task list"
 alias tmod="task modify"
 alias tst="task start"
 alias tsyn="task sync"
+
+# https://sw.kovidgoyal.net/kitty/faq.html#id4
+alias ssh="kitty +kitten ssh"
 # }}}
 
 # Theming {{{
-# Powerlevel9K and other theming config
-#POWERLEVEL9K_MODE='nerdfont-complete'
-#POWERLEVEL9K_CUSTOM_FIG='get_fig_prompt'
-#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir dir_writable custom_fig )
-#POWERLEVEL9K_CUSTOM_FIG_BACKGROUND="237"
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="237"
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="009"
-POWERLEVEL9K_DIR_HOME_BACKGROUND="237"
-POWERLEVEL9K_DIR_HOME_FOREGROUND="006"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="237"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="004"
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time status vi_mode time)
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
-POWERLEVEL9K_SHORTEN_FOLDER_MARKER=".citc"
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_with_folder_marker"
-POWERLEVEL9K_STATUS_VERBOSE=false
-
-include $ZSH_CUSTOM/plugins/powerlevel9k/powerlevel9k.zsh-theme
+include $ZSH_CUSTOM/plugins/powerlevel10k/powerlevel10k.zsh-theme
+# To customize prompt, run `p10k configure` or edit ~/workspace/dotfiles/zsh/.p10k.zsh.
+include ~/workspace/dotfiles/zsh/.p10k.zsh
 # }}}
 
-include $ZDOTDIR/.zprofile # Surprise! Some LightDM versions ignore .profile :(
-include $XDG_CONFIG_HOME/work/workrc

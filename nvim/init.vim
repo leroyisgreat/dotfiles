@@ -37,6 +37,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
 call plug#end()
 " }}}
 
@@ -58,6 +59,15 @@ let g:lsp_signs_enabled = 1           " enable diagnostics signs in the gutter
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
 " Automatically show completion options
 let g:asyncomplete_auto_popup = 1
+" }}}
+
+" Asyncomplete {{{
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'allowlist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
 " }}}
 
 filetype plugin on
@@ -198,5 +208,4 @@ let g:netrw_browse_split = 4
 let g:netrw_winsize = 25
 " }}}
 
-" Currently that config requires Python support and I don't know what to do :(
-call Include("$XDG_CONFIG_HOME/work/work.nvim")
+"call Include("$XDG_CONFIG_HOME/work/work.nvim")

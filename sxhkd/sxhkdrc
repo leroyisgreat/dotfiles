@@ -13,7 +13,7 @@
 
 # terminal emulator
 super + Return
-	rxvt-unicode
+	kitty
 
 # program launcher
 super + space
