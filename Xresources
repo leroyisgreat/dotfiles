@@ -55,15 +55,18 @@ URxvt.iso14755: false
 !! Common Keybinds for Navigations
 URxvt.keysym.Shift-Up: command:\033]720;1\007
 URxvt.keysym.Shift-Down: command:\033]721;1\007
-URxvt.keysym.Control-Up: \033[1;5A
-URxvt.keysym.Control-Down: \033[1;5B
-URxvt.keysym.Control-Right: \033[1;5C
-URxvt.keysym.Control-Left: \033[1;5D
+URxvt.keysym.C-Up: \033[1;5A
+URxvt.keysym.C-Down: \033[1;5B
+URxvt.keysym.C-Right: \033[1;5C
+URxvt.keysym.C-Left: \033[1;5D
 URxvt.keysym.Home: \033[1~
 URxvt.keysym.End: \033[4~
 URxvt.keysym.KP_Home: \033[1~
 URxvt.keysym.KP_End:  \033[4~
 URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.keysym.C-Backspace: \033[33~
+# Alt-Backspace is broken ??? Google doesn't help ??? What's going on ??? What key is this supposed to be ???
+#URxvt.keysym.A-Backspace: \033[[33~
 !! URLs
 URxvt.urlLauncher: /usr/bin/google-chrome
 URxvt.underlineURLs: true
