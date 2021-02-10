@@ -32,6 +32,9 @@ super + space
 {super + F3, AudioRaiseVolume}
 	$XDG_CONFIG_HOME/volume.sh -u
 
+{super + F4, AudioMicMute}
+	$XDG_CONFIG_HOME/volume.sh -p
+
 {super + F5, MonBrightnessDown}
 	xbacklight -dec 10
 
@@ -48,7 +51,7 @@ super + space
 
 # quit/restart bspwm
 super + shift + e; {l,e,r,shift + r, shift + s}
-	{cinnamon-screensaver-command --lock, bspc quit, pkill -USR1 -x sxhkd & $XDG_CONFIG_HOME/bspwm/bspwmrc, systemctl reboot, systemctl halt} # COMMENT
+	{cinnamon-screensaver-command --lock, bspc quit, pkill -USR1 -x sxhkd & $XDG_CONFIG_HOME/bspwm/bspwmrc, systemctl reboot, systemctl poweroff -i}
 
 # close and kill
 super + {_,shift + }q
