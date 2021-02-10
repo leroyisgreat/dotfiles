@@ -191,4 +191,4 @@ let g:netrw_browse_split = 4
 let g:netrw_winsize = 25
 " }}}
 
-call Include("$XDG_CONFIG_HOME/work/work.nvim")
+source ~/.config/work/work.nvim
