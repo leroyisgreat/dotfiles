@@ -1,10 +1,9 @@
 " @file   NeoVim init.vim
 "
-" @author LeRoy Gary <leroyisgreat@gmail.com>
+" @author Set Gary <leroyisgreat@gmail.com>
 " @date   27.08.2019
 "
 " Configuration for NeoVim, built from an old vimrc.
-" TODO: Reduce number of groupings, make this more sensible.
 
 " Include checks for file existence before sourcing.
 function Include(src)
@@ -13,16 +12,7 @@ function Include(src)
   endif
 endfunction
 
-" {{{ INSTALLATION
-" Plug
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-" }}}
-
-" {{{ HISTORY
+" {{{ History
 set history=500
 
 if has("autocmd")
@@ -30,13 +20,23 @@ if has("autocmd")
 endif
 " }}}
 
-" {{{ PLUGINS
+" {{{ Plugins
 " {{{ Plug
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.config/nvim/plugged')
 Plug 'edkolev/tmuxline.vim'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-syntastic/syntastic'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 call plug#end()
 " }}}
 
@@ -47,6 +47,17 @@ let g:tmuxline_preset = {
       \'win'  : '#I #W',
       \'cwin' : '#I #W',
       \'z'    : '#H' }
+" }}}
+
+" Vim LSP {{{
+" Send async completion requests.
+" WARNING: Might interfere with other completion plugins.
+let g:lsp_async_completion = 1
+" Enable UI for diagnostics
+let g:lsp_signs_enabled = 1           " enable diagnostics signs in the gutter
+let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+" Automatically show completion options
+let g:asyncomplete_auto_popup = 1
 " }}}
 
 filetype plugin on
@@ -118,10 +129,6 @@ set encoding=utf8
 set list listchars=tab:»\ ,trail:°
 " }}}
 
-" {{{ FOLDING
-set fdm=marker
-" }}}
-
 " {{{ TABBING & INDENTS
 set expandtab
 set smarttab
@@ -135,11 +142,10 @@ set wrap
 set cinoptions=l1
 " }}}
 
-" {{{ WINDOWS
-set splitright
-" }}}
+set fdm=marker    " Fold on triple-brace
+set splitright    " Split to the right by default
 
-" {{{ LINE NUMBERS
+" {{{ Line Numbers
 "
 " Allows a user to press (Ctrl+N, Ctrl+N) to toggle relative or absolute line
 " numbers. Useful on some commands.
@@ -159,7 +165,8 @@ nnoremap <C-N><C-N> :call NumberToggle()<CR>
 set nu
 " }}}
 
-" {{{ MAPPINGS
+" {{{ Keyboard Mapping
+
 " map control-backspace to delete the previous word
 imap <C-BS> <C-W>
 map <ESC>[1;5D <C-Left>
@@ -167,7 +174,29 @@ map <ESC>[1;5C <C-Right>
 
 " trim whitespace before write
 :ca trim %s/\s\+$//e
+
+" Search selected text
+vnoremap <C-f> "hy/<C-r>h/
+
+" Replace selected text
+vnoremap <C-g> "hy:%s/<C-r>h//gc<left><left><left>
+
+" LSP/Async Autocomplete
+" gd in Normal mode triggers gotodefinition
+nnoremap gd   :LspDefinition<CR>
+" F4 in Normal mode shows all references
+nnoremap <F4> :LspReferences<CR>
+" Tab Completion
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+" }}}
+
+" File explorer {{{
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_winsize = 25
 " }}}
 
 " Currently that config requires Python support and I don't know what to do :(
-"call Include("$XDG_CONFIG_HOME/work/work.nvim")
+call Include("$XDG_CONFIG_HOME/work/work.nvim")

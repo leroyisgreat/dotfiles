@@ -7,13 +7,16 @@
 # IDEA=$(pgrep -x idea.sh)
 
 if [[ -z "$TMUX" ]]; then
-  if [ "$SSH_CONNECTION" != "" ]; then
-    tm attach-session -t ssh_tmux || tm new-session -s ssh_tmux
   # In-IDE terminals
-  elif [[ -v $CLION ]]; then
+  if [[ -v CLION ]]; then
     tm attach-session -t clion_tmux || tm new-session -s clion_tmux
-  elif [[ -v $IDEA ]]; then
+  elif [[ -v VSCODE ]]; then
+    tm attach-session -t vscode_tmux || tm new-session -s vscode_tmux
+  elif [[ -v IDEA ]]; then
     tm attach-session -t idea_tmux || tm new-session -s idea_tmux
+  # Out-of-IDE terminals
+  elif [ "$SSH_CONNECTION" != "" ]; then
+    tm attach-session -t ssh_tmux || tm new-session -s ssh_tmux
   else
     tm attach-session -t lo_tmux || tm new-session -s lo_tmux
   fi
