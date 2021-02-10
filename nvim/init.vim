@@ -7,11 +7,11 @@
 " TODO: Reduce number of groupings, make this more sensible.
 
 " Include checks for file existence before sourcing.
-function! Include(src)
+function Include(src)
   if !empty(glob(a:src))
-    source a:src
+    exec "source " . a:src
   endif
-endfunc
+endfunction
 
 " {{{ INSTALLATION
 " Plug
@@ -169,4 +169,5 @@ map <ESC>[1;5C <C-Right>
 :ca trim %s/\s\+$//e
 " }}}
 
-call Include("$XDG_CONFIG_HOME/work/work.nvim")
+" Currently that config requires Python support and I don't know what to do :(
+"call Include("$XDG_CONFIG_HOME/work/work.nvim")

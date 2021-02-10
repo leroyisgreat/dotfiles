@@ -10,6 +10,9 @@
 # Autostart
 #
 
+# Background
+feh --bg-fill ~/Pictures/10-14-Night.jpg
+
 # fifo setup for sxhkd
 source ~/.zshenv
 export SXHKD_FIFO=/tmp/sxhkd-fifo
@@ -21,10 +24,10 @@ $XDG_CONFIG_HOME/sxhkd/sxhkd_notify "$SXHKD_FIFO" &
 sxhkd -s "$SXHKD_FIFO" &
 
 # redshift
-killall redshift; redshift &
+killall redshift; redshift -x; redshift &
 
 # statusbars
-$XDG_CONFIG_HOME/bspwm/melonpanel
+#$XDG_CONFIG_HOME/bspwm/melonpanel
 
 #
 # BSPWM config
@@ -37,6 +40,7 @@ bspc config ignore_ewmh_focus true
 bspc config border_width            2
 bspc config window_gap              12
 bspc config top_padding             0
+bspc config bottom_padding          22
 
 bspc config split_ratio             0.52
 bspc config borderless_monocle      true
@@ -47,14 +51,11 @@ bspc config focus_follows_pointer   true
 # Workspace + monitor config
 
 # Count monitors and distribute workspaces
-# NOTE: This requires Bash array slicing
-MONITORS=($(xrandr -q | grep -w connected | awk '{print $1;}'))
-DESKTOPS=(1 2 3 4 5 6 7 8 9 0)
+MONITORS=($(xrandr --listactivemonitors | tail -n+2 | awk -F'[/ +]' '{ print $8 " " $11; }' | sort -nk2 | awk '{ print $2; }'))
 for i in ${!MONITORS[@]}
 do
-  len=$(expr ${#DESKTOPS[*]} / ${#MONITORS[*]})
-  first=$(expr $len \* $i)
-  bspc monitor ${MONITORS[$i]} -d ${DESKTOPS[@]:$first:$len}
+  first=$(expr 5 \* $i \+ 1)
+  bspc monitor ${MONITORS[$i]} -d $first
 done
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on

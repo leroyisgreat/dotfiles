@@ -166,7 +166,10 @@ fi
     alias e="nvim"
     alias ls="ls --color"
     alias oct="octave --no-gui"
+    # To transfer colors, editor, etc.
     alias sudo="sudo -E "
+
+    # Tmux
     alias tm="tmux -f ~/.config/tmux/tmux.conf -2"
     alias tma="tmux attach-session"
     alias tmh="cat ~/.config/tmux/tmux.help"

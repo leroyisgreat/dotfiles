@@ -17,7 +17,7 @@ super + Return
 
 # program launcher
 super + space
-	rofi -show drun -theme gruvbox-dark
+	rofi -modi drun -show drun -theme gruvbox-dark
 
 #
 # F-keys
@@ -97,13 +97,17 @@ super + {p,b,comma,period}
 super + {_,shift + }c
 	bspc node -f {next,prev}.local
 
-# focus the next/previous desktop in the current monitor
-super + bracket{left,right}
-	bspc desktop -f {prev,next}.local
+# move the active node to next/previous desktop
+super + ctrl + bracket{left,right}
+	bspc node -d {prev,next}.local --follow
 
-# focus the last node/desktop
-super + {grave,Tab}
-	bspc {node,desktop} -f last
+# focus/swap the next/previous desktop in the current monitor
+super + {_,shift + }bracket{left,right}
+	bspc desktop -{f,s} {prev,next}.local
+
+# focus/swap the next monitor
+super + {_,shift +}Tab
+	bspc desktop -{f,s} next:focused
 
 # focus the older or newer node in the focus history
 super + {o,i}
@@ -111,9 +115,34 @@ super + {o,i}
 	bspc node {older,newer} -f; \
 	bspc wm -h on
 
-# focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+## focus or send to the given desktop
+#super + {_,shift + }{1-9,0}
+#	bspc {desktop -f,node -d} '^{1-9,10}'
+
+# https://gitlab.com/protesilaos/dotfiles/-/blob/v2.0.0-void/bspwm/.config/sxhkd/sxhkdrc_bspc
+#
+# Dynamic desktop behaviour:  this invokes a script of mine that
+# implements dynamic desktops (see dotfiles).  If the given desktop
+# number is missing, it is created on the spot.  Empty desktops are then
+# removed automatically.
+#
+#
+# mod3 + <number> = focus the given desktop
+# mod3 + shift + <number> = send focused window to given desktop
+# mod3 + ctrl + shift + <number> = as above, but send to next monitor
+# mod3 + ctrl + <number> = switches the active (visible) desktop of the
+# unfocused monitor, without focusing it (focus stays on the current
+# desktop/monitor).  It also inserts a receptacle, meaning that the next
+# created window will go there without calling focus to itself (see my
+# bspwm_external_rules).
+#
+#
+# Commands for receptacles are defined in the "advanced operations"
+# section.
+#
+# NOTE the leading `;` runs this command asynchronously.
+super + {_,shift + ,ctrl + shift +,ctrl +}{0-9}
+	;bspwm_dynamic_desktop {--df,--ns,--nm,--da} {0-9}
 
 # That's a rotate
 super + r
@@ -150,7 +179,11 @@ super + ctrl + s
 # expand a window by moving one of its side outward, else attempt to contract
 # the opposite side.
 super + shift + r: {h,j,k,l}
-	{bspc node -z left -20 0 || bspc node -z right -20 0, bspc node -z bottom 0 20 || bspc node -z top 0 20, bspc node -z top 0 -20 || bspc node -z bottom 0 -20, bspc node -z right 20 0 || bspc node -z left 20 0}
+	{bspc node -z right -20 0 || bspc node -z right -20 0, bspc node -z bottom 0 20 || bspc node -z top 0 20, bspc node -z top 0 -20 || bspc node -z bottom 0 -20, bspc node -z right 20 0 || bspc node -z left 20 0}
+
+# force contract for free mode
+super + shift + r: shift + {h,j,k,l}
+	{bspc node -z right -20 0, bspc node -z top 0 20, bspc node -z bottom 0 -20, bspc node -z left 20 0}
 
 # move a floating window
 super + {Left,Down,Up,Right}
