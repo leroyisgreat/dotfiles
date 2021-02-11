@@ -172,5 +172,5 @@ POWERLEVEL9K_STATUS_VERBOSE=false
 include $ZSH_CUSTOM/plugins/powerlevel9k/powerlevel9k.zsh-theme
 # }}}
 
-include $ZDOTDIR/.zprofile # Surprise! Some LightDM versions ignore .profile :(
 include $XDG_CONFIG_HOME/work/workrc
+include $ZDOTDIR/.zprofile # Surprise! Some LightDM versions ignore .profile :(
