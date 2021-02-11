@@ -49,9 +49,13 @@ super + space
 # bspwm hotkeys
 #
 
+# reload sxhkd, bspwm
+super + {_,shift + }Escape
+	{pkill -USR1 -x sxhkd, bspc wm -r}
+
 # quit/restart bspwm
-super + shift + e; {l,e,r,shift + r, shift + s}
-	{cinnamon-screensaver-command --lock, bspc quit, pkill -USR1 -x sxhkd & $XDG_CONFIG_HOME/bspwm/bspwmrc, systemctl reboot, systemctl poweroff -i}
+super + shift + e; {l,e, shift + r, shift + s}
+	{cinnamon-screensaver-command --lock, bspc quit,systemctl reboot, systemctl poweroff -i}
 
 # close and kill
 super + {_,shift + }q

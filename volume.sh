@@ -4,8 +4,8 @@
 # https://medium.com/@Drew_Stokes/bash-argument-parsing-54f3b81a6a8f
 
 # TODO: replace sed with something more readable, probably awk
-snk=`pactl list short sinks | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
-src=`pactl list short sources | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
+snk=`pactl list short sinks | grep 'RUNNING\|IDLE\|SUSPENDED' | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
+src=`pactl list short sources | grep 'RUNNING\|IDLE\|SUSPENDED' | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,'`
 if [[ -z $snk ]]; then
   snk=0
 fi

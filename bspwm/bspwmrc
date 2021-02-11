@@ -1,19 +1,16 @@
 #!/bin/sh
 # -*- tab-width: 4; encoding: utf-8 -*-
 #
-## @file bspwmrc
-## @author LeRoy Gary <leroyisgreat@gmail.com>
-## @brief BSPWM config file
-##
+# @file bspwmrc
+# @author Set Gary <leroyisgreat@gmail.com>
+# @brief BSPWM config file
 
-#
-# Autostart
-#
-
+# Autostart {{{
 # Background
 feh --bg-fill ~/Pictures/10-14-Night.jpg
 
 # fifo setup for sxhkd
+# TODO(sez): move this to another script
 source ~/.zshenv
 export SXHKD_FIFO=/tmp/sxhkd-fifo
 
@@ -23,16 +20,14 @@ $XDG_CONFIG_HOME/sxhkd/sxhkd_notify "$SXHKD_FIFO" &
 
 sxhkd -s "$SXHKD_FIFO" &
 
+# statusbars
+$XDG_CONFIG_HOME/polybar/launch.sh
+
 # redshift
 killall redshift; redshift -x; redshift &
+# }}}
 
-# statusbars
-#$XDG_CONFIG_HOME/bspwm/melonpanel
-
-#
-# BSPWM config
-#
-
+# BSPWM config {{{
 wmname LG3D &
 
 bspc config ignore_ewmh_focus true
@@ -40,9 +35,9 @@ bspc config ignore_ewmh_focus true
 bspc config border_width            2
 bspc config window_gap              12
 bspc config top_padding             0
-bspc config bottom_padding          22
+bspc config bottom_padding          0
 
-bspc config split_ratio             0.52
+bspc config split_ratio             0.50
 bspc config borderless_monocle      true
 bspc config gapless_monocle         true
 
@@ -57,12 +52,6 @@ do
   first=$(expr 5 \* $i \+ 1)
   bspc monitor ${MONITORS[$i]} -d $first
 done
-
-bspc rule -a Gimp desktop='^8' state=floating follow=on
-bspc rule -a Chromium desktop='^2'
-bspc rule -a mplayer2 state=floating
-bspc rule -a Kupfer.py focus=on
-bspc rule -a Screenkey manage=off
 
 # Colors
 FOREGROUND=$(xrdb -query | grep 'foreground:'| awk '{print $NF}')
@@ -98,20 +87,4 @@ bspc config normal_sticky_border_color      "$BLACK"
 bspc config focused_private_border_color    "$DARKBLUE"
 bspc config active_private_border_color     "$BLUE"
 bspc config normal_private_border_color     "$BLACK"
-
-## bspc config history_aware_focus         true
-## 
-## # Float windows opened from the panel
-## bspc rule --add URxvt:popup                 state=floating
-## # Make scratchpad floating and sticky
-## bspc rule --add URxvt:scratchpad            sticky=on state=floating border=off
-## # Set wallpaper
-## hsetroot -solid "$brightblack"
-## 
-## # Load session
-## . "$BSPWM_CONFIG/restore.cfg"
-## if [ -e "$BSPWM_STATE" ] ; then
-## 	bspc wm --load-state "$BSPWM_STATE"
-## 	bspc wm --adopt-orphans
-## 	rm "$BSPWM_STATE"
-## fi
+# }}}
