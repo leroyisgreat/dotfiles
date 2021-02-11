@@ -9,16 +9,16 @@
 if [[ -z "$TMUX" ]]; then
   # In-IDE terminals
   if [[ -v CLION ]]; then
-    tm attach-session -t clion_tmux || tm new-session -s clion_tmux
+    tma -t clion_tmux || tm new-session -s clion_tmux
   elif [[ -v VSCODE ]]; then
-    tm attach-session -t vscode_tmux || tm new-session -s vscode_tmux
+    tma -t vscode_tmux || tm new-session -s vscode_tmux
   elif [[ -v IDEA ]]; then
-    tm attach-session -t idea_tmux || tm new-session -s idea_tmux
+    tma -t idea_tmux || tm new-session -s idea_tmux
   # Out-of-IDE terminals
   elif [ "$SSH_CONNECTION" != "" ]; then
-    tm attach-session -t ssh_tmux || tm new-session -s ssh_tmux
+    tma -t ssh_tmux || tm new-session -s ssh_tmux
   else
-    tm attach-session -t lo_tmux || tm new-session -s lo_tmux
+    tma -t lo_tmux || tm new-session -s lo_tmux
   fi
 else
   cat ~/.config/tmux/tmux.help

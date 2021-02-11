@@ -1,9 +1,16 @@
 " @file   NeoVim init.vim
 "
-" @author LeRoy Gary <leroyisgreat@gmail.com>
+" @author Set Gary <leroyisgreat@gmail.com>
 " @date   27.08.2019
 "
 " Configuration for NeoVim, built from an old vimrc.
+
+" Include checks for file existence before sourcing.
+function Include(src)
+  if !empty(glob(a:src))
+    exec "source " . a:src
+  endif
+endfunction
 
 " {{{ History
 set history=500
@@ -30,6 +37,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
 call plug#end()
 " }}}
 
@@ -51,6 +59,15 @@ let g:lsp_signs_enabled = 1           " enable diagnostics signs in the gutter
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
 " Automatically show completion options
 let g:asyncomplete_auto_popup = 1
+" }}}
+
+" Asyncomplete {{{
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'allowlist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
 " }}}
 
 filetype plugin on
@@ -186,9 +203,10 @@ inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 " }}}
 
 " File explorer {{{
+" Open with :Vex
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_winsize = 25
 " }}}
 
-source ~/.config/work/work.nvim
+"call Include("$XDG_CONFIG_HOME/work/work.nvim")
