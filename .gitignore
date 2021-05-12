@@ -13,5 +13,6 @@ nvim/autoload
 nvim/autoload/*
 nvim/.netrwhist
 zsh/.zcomp*
+zsh/.p10k.zsh
 zsh/custom/plugins
 zsh/custom/work.zsh-theme

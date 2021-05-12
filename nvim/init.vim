@@ -38,6 +38,7 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/asyncomplete-emoji.vim'
 call plug#end()
 " }}}
 
@@ -53,12 +54,10 @@ let g:tmuxline_preset = {
 " Vim LSP {{{
 " Send async completion requests.
 " WARNING: Might interfere with other completion plugins.
-let g:lsp_async_completion = 1
+"let g:lsp_async_completion = 1
 " Enable UI for diagnostics
 let g:lsp_signs_enabled = 1           " enable diagnostics signs in the gutter
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
-" Automatically show completion options
-let g:asyncomplete_auto_popup = 1
 " }}}
 
 " Asyncomplete {{{
@@ -68,6 +67,28 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'priority': 10,
     \ 'completor': function('asyncomplete#sources#file#completor')
     \ }))
+
+" Automatically show completion options
+let g:asyncomplete_auto_popup = 1
+
+" allow modifying the completeopt variable, or it will
+" be overridden all the time
+let g:asyncomplete_auto_completeopt = 0
+
+set completeopt=menuone,noinsert,noselect,preview
+
+"autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" Keybindings 
+" TODO(sez): move
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+"au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#emoji#get_source_options({
+"    \ 'name': 'emoji',
+"    \ 'allowlist': ['*'],
+"    \ 'completor': function('asyncomplete#sources#emoji#completor'),
+"    \ }))
 " }}}
 
 filetype plugin on
@@ -205,8 +226,8 @@ inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 " File explorer {{{
 " Open with :Vex
 let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
+let g:netrw_browse_split = 3
 let g:netrw_winsize = 25
 " }}}
 
-"call Include("$XDG_CONFIG_HOME/work/work.nvim")
+call Include("$XDG_CONFIG_HOME/work/work.nvim")
