@@ -7,7 +7,7 @@ function include() {
 # }}}
 
 include $XDG_CONFIG_HOME/work/workrc
-include $ZDOTDIR/.zprofile # Surprise! Some LightDM versions ignore .profile :(
+include $ZDOTDIR/.zlogin
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/workspace/dotfiles/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -24,19 +24,20 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8,underline"
 # Better command script highlighting
 include $ZSH_CUSTOM/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
-# Better command history search
-include /usr/share/doc/fzf/examples/key-bindings.zsh
-include /usr/share/doc/fzf/examples/completion.zsh
-if [[ -f $HISTFILE ]]; then
-  HISTSIZE=1000
-  SAVEHIST=1000
-  FZF_CTRL_R_OPTS="--history=$HISTFILE"
-fi
 #autoload -U history-pattern-search
 autoload -U add-zsh-hook
+
 # Enable Ctrl-x-e to edit command line
 autoload -U edit-command-line
 zle -N edit-command-line
+
+# History config
+if [[ -f $HISTFILE ]]; then
+  touch $HISTFILE
+fi
+HISTSIZE=10000
+SAVEHIST=1000
+setopt SHARE_HISTORY
 # }}}
 
 # Keybindings {{{
@@ -98,29 +99,6 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     zle -N zle-line-init
     zle -N zle-line-finish
 fi
-# }}}
-
-# Dirstack {{{
-#
-# cd -#n to list top $DIRSTACKSIZE recent directories
-DIRSTACKFILE="$HOME/.cache/zsh/dirs"
-if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
-  dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
-  #[[ -d $dirstack[1] ]] && cd $dirstack[1]
-fi
-chpwd() {
-  print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
-}
-
-DIRSTACKSIZE=20
-
-setopt autopushd pushdsilent pushdtohome
-
-## Remove duplicate entries
-setopt pushdignoredups
-
-## This reverts the +/- operators.
-setopt pushdminus
 # }}}
 
 # Aliases {{{
