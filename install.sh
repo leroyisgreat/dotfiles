@@ -16,13 +16,7 @@ function link-folder () {
   fi
 }
 
-## i3
-link-folder("i3")
-
 ## zsh
-# Install OhMyZsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
 link-folder("zsh")
 
 # Redirect ZSH to use new config file location
